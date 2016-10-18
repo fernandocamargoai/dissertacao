@@ -68,15 +68,30 @@
 %---------------------------------------------------------
 % L L L
 %---------------------------------------------------------
-
-@TechReport{liefooghe2016,
+@Article{liefooghe2016,
  author = {Arnaud Liefooghe and Bilel Derbel},
  title = {A Correlation Analysis of Set Quality Indicator Values in Multiobjective Optimization},
- institution = {Genetic and Evolutionary Computation Conference (GECCO 2016)},
+ journal = {Genetic and Evolutionary Computation Conference (GECCO 2016)},
  year = {2016},
- address = {Genetic and Evolutionary Computation Conference (GECCO 2016). Denver, United States},
- url = {https://hal.archives-ouvertes.fr/hal-01159961v2}
+ OPTkey = {},
+ OPTvolume = {},
+ OPTnumber = {},
+ OPTpages = {},
+ OPTmonth = {},
+ OPTnote = {},
+ OPTannote = {},
+ OPTurl = {},
+ OPTurldate = {},
+ OPTlastchecked = {},
+ OPTdoi = {},
+ OPTisbn = {},
+ OPTissn = {},
+ OPTlocalfile = {},
+ OPTabstract = {},
+ OPTkeywords = {},
 }
+
+
 
 %---------------------------------------------------------
 % M M M

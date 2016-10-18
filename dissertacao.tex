@@ -10,6 +10,14 @@
 %                     da versão final do seu texto!!!
 
 \usepackage{amsmath}
+\usepackage{colortbl}
+%\usepackage[figuresleft]{rotating}
+\usepackage{rotating}
+%\usepackage[table*]{xcolor}
+\xdefinecolor{gray95}{gray}{0.65}
+\xdefinecolor{gray25}{gray}{0.8}
+
+\graphicspath{{./fig/}}
 
 %----------------------------------------------------- INICIO DO DOCUMENTO %
 \begin{document}
@@ -84,10 +92,22 @@
 
 %--------------------------------------------------------------- CAPÍTULOS %
 \input{./tex/cap_I}
+
+\part{Referenciais Teóricos}
 \input{./tex/cap_II}
 \input{./tex/cap_III}
 \input{./tex/cap_IV}
 \input{./tex/cap_V}
+\input{./tex/cap_VI}
+
+\part{Resultados}
+\input{./tex/cap_VII}
+\input{./tex/cap_VIII}
+
+\part{Conclusões e Trabalhos Futuros}
+\input{./tex/cap_IX}
+\input{./tex/cap_X}
+
 
 %------------------------------------------------------------ BIBLIOGRAFIA %
 \cleardoublepage
@@ -100,7 +120,7 @@
 %--------------------------------------------------------------- APÊNDICES %
 \apendices
 
-%\input{./pos/apend_I}
+\input{./pos/apend_I}
 %\input{./pos/apend_II}
 
 \end{document}
