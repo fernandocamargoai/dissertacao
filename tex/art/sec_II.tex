@@ -1,0 +1,36 @@
+\section{O Problema do Planejamento Energético de Sistemas Hidrotérmicos}
+
+Como já foi apresentado, a geração energética de uma hidrelétrica é dependente das decisões de operação anteriores. Ou seja, trata-se de um problema dinâmico de otimização envolvendo o tempo, de forma cada decisão influenciará no futuro. Isso, por si só, já torna o problema mais complexo, visto que temos que maximizar a produção nos preocupando com o armazenamento.
+
+Também foi discutido que a matriz brasileira funciona com geração hidríca e utiliza geração térmica como backup, sendo que a hidríca possui custo fixo e a térmica possui custo variável. Portanto, o objetivo é que as hidrelétricas sejam operadas de modo a minimizar a suplementação através de usinas térmicas. Assim, o objetivo do problema é a minimização do custo total de produção, que pode ser reduzido ao custo de produção térmica \cite{yu1998}.
+
+Além disso, quando múltiplas usinas se situam na mesma bacia hidrográfica, há um claro acoplamento entre elas, visto que a água liberada por uma usina seguirá para o armazenamento da usina seguinte. Isso faz com que esse seja um problema não separável, caracterizado por um sistema interconectado de usinas hidrelétricas. Além disso, a função objetivo é não linear, assim como o custo de geração térmica, e não convexa em toda sua região de abrangência \cite{carneiro1997}. Por fim, este é também um problema estocástico, devido à aleatoriedade das vazões. Concluindo-se, assim, que trata-se de um problema de otimização de um sistema dinâmico, não separável, não linear, não convexo e de grande porte \cite{soares1991}.
+
+A solução deste problema será a determinação de uma estratégia de geração para cada usina de interconectada, de forma a minimizar o valor esperado dos custos operativos no período do planejamento e atenda a demanda dentro de um limite de confiabilidade \cite{fortunato1990}. A demanda a ser cumprida é determinada pelo governo do país, de acordo com as previsões realizadas por órgãos competentes. No Brasil, as metas de geração elétrica do SIN (Sistema Integrado Nacional) são definidas pelo ONS, o qual leva em consideração informações de disponibilidade de energética, restrições operativas, custos de operação e demanda de carga.
+
+Por ser um problema de grande complexidade, envolvendo fatores temporais e espaciais, a adoção de um único modelo para solução do planejamento torna-se inviável. Por isso, as metodologias aplicadas atualmente sugerem uma decomposição do planejamento em diferentes escalas de tempo \cite{pereira1985}. Isso porque, de acordo com a escala de tempo adotada, determinadas características são levadas em consideração, enquanto outras podem ser ignoradas, sendo resolvidas posteriormente. Por exemplo, se o horizonte de planejamento for anual, o impacto da aleatoriedade das vazões é considerável, uma vez que elas contribuirão para o estado final dos reservatórios ao fim do horizonte do planejamento. Já no caso de horizonte de uma semana, a aleatoriedade das vazões de longo prazo podem ser ignoradas.
+
+Assim, para se resolver o problema como um todo, concatena-se um conjunto de modelos computacionais, os quais resolvem parcialmente o problema em diferentes horizontes de planejamento. A essa técnica, é dado o nome de cadeia de coordenação hidrotérmica da operação. O resultado de sua aplicação é uma sequência de decisões de geração que minimizem o custo da operação, garantindo o atendimento da demanda com confiabilidade, levando-se em conta o compromisso entre decisões de geração no presente, que irão afetar as decisões no futuro \cite{silva2014}.
+
+Diversos modelos de cadeias de coordenação hidrotérmica foram apresentados na literatura. A seguir, na Figura \ref{fig:decomposicaoTemporal}, dispôe-se aquela utilizada neste trabalho, a qual apresenta uma possível decomposição temporal do problema e os modelos com diferentes horizontes de planejamento e graus de detalhamento do sistema.
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=2.5in]{./fig/Decomposicao-Temporal.pdf}
+  \caption{Decomposição Temporal do Problema \cite{junior1998}}
+  \label{fig:decomposicaoTemporal}
+\end{figure}
+
+O objetivo dessa abordagem é fazer uma decomposição temporal do problema em períodos distintos, de forma que alguns fatores são levados em consideração e outros são ignorados de acordo com o período em questão. A sequência de solução é de períodos maiores para menores, de forma que o resultado obtido para um período de mais longo prazo serve de metas a serem atingidas para um período de mais curto prazo. Com isso, o planejamento da operação energética, o qual consiste na otimização mensal do sistema considerando apenas aspectos energéticos e restrições globais, e o planejamento da operação elétrica, o qual visa a otimização de cada usina com base horária e considerando seus aspectos individuais, podem ser divididos em planejamento de curto, médio e longo prazo.
+
+No Planejamento de Longo Prazo - PLP, o horizonte de planejamento é de alguns anos (o setor elétrico brasileiro usualmente adota o período de dez anos), com discretização mensal, para sistemas constituídos de grandes reservatórios e com grande capacidade de regularização. Como o grau de incerteza das afluências é alto, a estocasticidade de suas vazões não pode ser desprezada. Dentro da cadeia de planejamento, a solução do PLP é a
+curva de custo esperado futuro de operação. Essa curva representa o custo esperado associado ao armazenamento do sistema no início do horizonte de longo prazo. Através dessa solução, tem-se a estimativa do custo associado ao armazenamento dos reservatórios do sistema no final do horizonte de otimização do planejamento de médio prazo \cite{silva2014}.
+
+O Planejamento de Médio Prazo - PMP abrange um horizonte de alguns meses, com discretização mensal ou semanal. Com um grau de incerteza razoável, o problema é tratado como determinístico, e tem como objetivo a determinação de uma política de operação individualizada, que considere o acoplamento hidráulico e possíveis diversidades hidrológicas entre os rios. As afluências e demanda utilizadas podem ser previstas por modelos de séries temporais \cite{silva2014}.
+
+O Planejamento de Curto Prazo - PCP abrange um horizonte de planejamento de algumas horas a uma semana, e o objetivo é a desagregação de metas de geração semanais ou mensais previamente fornecidas, considerando todos os aspectos energéticos, hidráulicos e elétricos não levados em conta nas etapas anteriores. Pode-se citar: tempo
+de percurso da água entre usinas, rampa de tomada de carga das máquinas, limites de transmissão das linhas, etc. Como o horizonte de otimização é pequeno, afluências e demanda são consideradas conhecidas \cite{silva2014}.
+
+Neste trabalho, estudaremos metodologias de otimização para o Planejamento de Médio Prazo, o qual adotaremos um horizonte de alguns anos, com discretização mensal e usaremos vazões históricas conhecidas, as quais poderiam ser obtidas por modelos de previsão.
+
+Além dessa, existem diversas abordagens presentes na literatura. A Seção \ref{sec:tecnicasUtilizadas} apresenta algumas delas.

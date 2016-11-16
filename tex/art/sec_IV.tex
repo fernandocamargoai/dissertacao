@@ -1,4 +1,4 @@
-\chapter{Sistemas Hidrotérmicos de Geração}
+\section{Sistemas Hidrotérmicos de Geração}
 \label{cap:sistemasHidrotermicos}
 
 Em um sistema hidrotérmico de geração, como o encontrado no cenário Brasileiro, existem dois meios majoritários de geração de energia elétrica: através de usinas hidrelétricas, as quais utilizam a energia de quedas hidráulicas, e usinas termelétricas, as quais fazem queima de combustíveis fósseis ou fissão nuclear. A energia elétrica gerada através desses meios é transmitida para os mercados consumidores através de linhas de transmissão e distribuição.
@@ -7,7 +7,7 @@ Os custos envolvidos nessa geração de energia dependem da fonte utilizada. No ca
 
 Devido ao alto custo de combustíveis utilizados na geração elétrica, dá-se preferência à geração através de usinas hidrelétricas, que apresentam custos fixos e inferiores. Entretanto, essas não são capazes de gerar 100\% da energia necessária o tempo todo, visto que têm produtividade que varia de acordo com fenômenos naturais. Então, a estratégia utilizada é de se gerar energia primariamente através das usinas hidrelétricas e se complementar com as usinas termelétricas. A seguir, detalhamos o funcionamento de ambos tipos de usinas.
 
-\section{Usinas Hidrelétricas}
+\subsection{Usinas Hidrelétricas}
 
 O processo de geração de energia hidrelétrica baseia-se na transformação de energia potencial hidráulica, gerada pela diferença de altura, em energia elétrica. O processo se inicia com o armazenamento de água dos rios em reservatórios ou lagos, através da construção de obras de represamento. A principal função da represa é criar a diferença de altura, provocando o acúmulo de energia hidráulica. A água do reservatório é conduzida
 sob pressão através de condutos forçados até o conjunto de turbinas da usina, denominado casa de máquinas. Na casa de máquinas, a água é utilizada para impulsionar as pás (ou lâminas) das turbinas. A energia cinética e a energia de pressão dinâmica desenvolvida no percurso da água, através das tubulações, são convertidas em energia cinética de rotação. As turbinas estão ligadas a geradores que, postos em movimento contínuo, convertem a energia cinética em energia elétrica. Depois de passar pelas turbinas, a água retorna ao rio através de canais ou condutos, pelo chamado canal de fuga da usina. \cite{silva2014}
@@ -16,19 +16,19 @@ Além disso, é possível a liberação da água sem que essa passe pelas turbinas. Is
 
 Para que a energia gerada possa ser calculada, utiliza-se de um modelo matemática da usina. Esse modelo é uma função de geração que relaciona variáveis mensuráveis à energia gerada. Como entrada, esse modelo requer as seguintes variáveis: volume de água armazenado no reservatório, vazão turbinada e vazão vertida. Através delas,  é possível calcular a quantidade de energia gerada, como sugere a Figura \ref{fig:modeloHidreletrica}.
 
-\begin{figure}[h]
+\begin{figure}[!t]
   \centering
   \caption{Variáveis de entrada e saída utilizadas no Modelo geral de uma Usina Hidroelétrica}
-  \includegraphics[width=\textwidth]{./fig/Modelo-Hidreletrica.pdf}
+  \includegraphics[width=2.5in]{./fig/Modelo-Hidreletrica.pdf}
   \label{fig:modeloHidreletrica}
 \end{figure}
 
 Naturalmente, esse modelo matemático depende de outras variáveis além das variáveis de entrada. Portanto, estudaremos a seguir os principais componentes de uma usina hidrelétrica, como mostrado na Figura \ref{fig:componentesUsinasHidreletricas}.
 
-\begin{figure}[h]
+\begin{figure}[!t]
   \centering
   \caption{Principais componentes de uma Usina Hidrelétrica \cite{silva2014}}
-  \includegraphics[width=\textwidth]{./fig/Componentes-usinas-hidreletricas.jpg}
+  \includegraphics[width=2.5in]{./fig/Componentes-usinas-hidreletricas.jpg}
   \label{fig:componentesUsinasHidreletricas}
 \end{figure}
 
@@ -47,24 +47,24 @@ Naturalmente, esse modelo matemático depende de outras variáveis além das variáv
 
 Vale notar que a variável $q$, a qual representa a vazão turbinada, é limitada pelo engolimento máximo da usina $q^{max}$, que é a vazão turbinada que produzir a potência máxima da usina para uma data altura de queda.
 
-\subsection{Reservatórios}
+\subsubsection{Reservatórios}
 
 O reservatório de uma usina hidrelétrica é responsável por armazenar a água que será utilizada na geração elétrica. Eles são classificados em duas categorias: de compensação e de acumulação. Enquanto os reservatórios de compensação têm volume o suficiente apenas para regularização de cargas semanais ou mensais, os de acumulação são capazes de regularizar vazões de alguns meses a alguns anos, tudo isso dependendo de seu volume. Por regularizar, entende-se a capacidade de atenuar a variação da disponibilidade de água, tornando possível a utilizando de água proveniente de um período de chuvas em um período de estiagem. Vale notar que em horizontes de planejamento de médio e longo prazo, a capacidade de regularização de usinas fio d'água, aquelas com reservatório de compensação, são desprezadas.
 
 Em um mesmo rio, é comum a construção de uma cascata de usinas hidrelétricas. Dessa forma, a vazão descarregada da usina anterior, conhecida como montante, irá para o reservatório da usinas posterior, conhecida como jusante. Essa vazão poderá passar novamente por regularização no reservatório da usina em jusante. A Figura \ref{fig:cascataUsinas} ilusta uma cascata de usinas localizadas no sistema sudeste. As usinas com reservatório de acumulação são representadas pelo símbolo triangular, enquanto as usinas com reservatório de compensação são representadas pelo símbolo circular.
 
-\begin{figure}[h]
+\begin{figure}[!t]
   \centering
   \caption{Cascata de usinas localizadas no sistema sudeste}
-  \includegraphics[width=\textwidth]{./fig/Cascata-Usinas.pdf}
+  \includegraphics[width=2.5in]{./fig/Cascata-Usinas.pdf}
   \label{fig:cascataUsinas}
 \end{figure}
 
-\subsection{Conjuntos Turbina/Gerador}
+\subsubsection{Conjuntos Turbina/Gerador}
 
-\section{Usinas Termelétricas}
+\subsection{Usinas Termelétricas}
 
-\section{Formulação do Problema de Planejamento da Operação Energética}
+\subsection{Formulação do Problema de Planejamento da Operação Energética}
 
 O planejamento da operação energética tem como objetivo minimizar o custo de geração de um sistema termelétrico, ao mesmo tempo que mantém os reservatórios das usinas hidrelétricas em alta. Ou seja, temos aqui dois objetivos distintos: minimizar o custo, o qual tem sua porção variável na geração térmica complementar, e maximizar o volume final dos reservatórios. Para resolver esse problema, consideram-se conhecidas as vazões afluentes e a demanda e leva-se em conta as características individuais de cada usina hidrelétrica. As funções objetivos a serem otimizadas são descritas pelo vetor objetivo $\vec{F}$ mostrado na Equação \ref{eq:funcoesObjetivo}, onde $CT$ representa a soma dos custos de geração de energia por usinas térmicas durante todo o período de planejamento (Equação \ref{eq:funcaoObjetivoCustoTermico}) e $VF$ é associada ao nível dos reservatórios das hidrelétricas no último período de planejamento.
 

@@ -1,27 +1,19 @@
-\chapter{Resultados e Discussões}
+\section{Resultados e Discussões}
 \label{cap:resultadosDiscussoes}
-
-Este capí­tulo apresenta os resultados obtidos na aplicação dos algoritmos apresentados no Capí­tulo \ref{cap:algoritmosAplicados} na otimização dos seguintes períodos: 
-
-\begin{description}
- \item[Maio/1951 a Abril/1956] Período de seca com menor vazão afluente às usinas.
- \item[Maio/1961 a Abril/1966] Período de vazões médias.
- \item[Maio/1980 a Abril/1985] Período de cheia com maiores vazões afluentes às usinas.
-\end{description}
 
 Deseja-se avaliar os resultados obtidos por esses algoritmos de acordo com os dois objetivos utilizados: diminuir os custos de geração térmica e aumentar o armazenamento final dos reservatórios das usinas. Para facilitar a visualização das frentes de pareto, o armazenamento final foi convertido em porcentagem, indo de 0 a 100\%. Além disso, os valores do armazenamento final receberam valores negativos, sendo apresentados de -100 até 0\%.
 
-Os valores obtidos pelos algoritmos utilizados serão comparados entre si através das métricas de qualidade apresentadas na Seção \ref{sec:metricas}, além da apresentação dos gráficos de suas frentes de pareto junto à frente de referência. Deve-se notar que, por não possuirmos uma frente de pareto de referência ideal com o melhor resultado possível, foi criada uma a partir dos melhores resultados de todas execuções de todos os algoritmos.
+Os valores obtidos pelos algoritmos utilizados serão comparados entre si através de conhecidas métricas de qualidade, além da apresentação dos gráficos de suas frentes de pareto junto à frente de referência. Deve-se notar que, por não possuirmos uma frente de pareto de referência ideal com o melhor resultado possível, foi criada uma a partir dos melhores resultados de todas execuções de todos os algoritmos.
 
 Também é importante notar que devido às diferenças de configuração das oito usinas adotadas devido ao uso de um simulador de terceiro que não permitia alteração dessas configurações, os números obtidos aqui não são comparáveis com os dois estudos realizados em \cite{gomides2012} e \cite{silva2014}.
 
-\section{Perí­odo 1951-1956}
+\subsection{Perí­odo 1951-1956}
 
 Tratando-se de um período de seca, espera-se maior dificuldade na otimização da operação das usinas nesse período. Portanto, é um período chave na comparação entre os algoritmos.
 
-A Tabela \ref{table:epPeriodo1} apresenta a mediana e o desvio do valor do Indicador Epsilon Aditivo (\textit{I}$^{1}_{\epsilon+}$) obtido em todas execuções de cada algoritmo para esse período. Lembrando que, como apresentado na Seção \ref{sec:epsilon}, esse indicador mostra o quão próxima a frente de pareto obtida está da verdadeira frente de pareto (nesse caso, como já citado, obtida com os melhores resultados de todos algoritmos), sendo melhor o resultado quanto menor o valor. Nessa tabela também está indicado em cinza escuro e cinza claro o melhor e o segundo melhor resultado, respectivamente. Uma última observação importante é que os valores apresentados entre parênteses após o nome de cada algoritmo referem-se ao valor do índice de distribuição utilizado nas operações de cruzamento e mutação, como discutido na Seção \ref{sec:parametrosUtilizados}. As tabelas seguintes serão apresentadas de maneira semelhante.
+A Tabela \ref{table:epPeriodo1} apresenta a mediana e o desvio do valor do Indicador Epsilon Aditivo (\textit{I}$^{1}_{\epsilon+}$) obtido em todas execuções de cada algoritmo para esse período. Esse indicador mostra o quão próxima a frente de pareto obtida está da verdadeira frente de pareto (nesse caso, como já citado, obtida com os melhores resultados de todos algoritmos), sendo melhor o resultado quanto menor o valor. Nessa tabela também está indicado em cinza escuro e cinza claro o melhor e o segundo melhor resultado, respectivamente. Uma última observação importante é que os valores apresentados entre parênteses após o nome de cada algoritmo referem-se ao valor do índice de distribuição utilizado nas operações de cruzamento e mutação, como discutido na Seção \ref{sec:parametrosUtilizados}. As tabelas seguintes serão apresentadas de maneira semelhante.
 
-\begin{table}[h]
+\begin{table}[!t]
 \caption{Mediana e Desvio Padrão do Indicador Epsilon Aditivo (\textit{I}$^{1}_{\epsilon+}$) do primeiro período}
 \label{table:epPeriodo1}
 \centering
@@ -43,9 +35,9 @@ A Tabela \ref{table:epPeriodo1} apresenta a mediana e o desvio do valor do Indic
 \end{tabular}
 \end{table}
 
-A primeira análise que pode-se fazer ao observarmos a Tabela \ref{table:epPeriodo1} é que, de modo geral, valores menores para o índice de distribuição geraram melhores resultados. Essa afirmação é verdadeira para todos algoritmos, porém, tendo uma ressalva em relação ao algoritmo SMPSO, que obteve resultados muito próximos com os índices de valor $1,0$ e $10,0$. Nota-se que apesar de uma mediana com valor ligeiramente menor para o índice $10.0$, seu desvio padrão também é ligeiramente maior. Assim, indica-se baixa variação nos resultados do algoritmo SMPSO com relação à alteração do parâmetro de índice de distribuição de seu operador de mutação.
+A primeira análise que pode-se fazer ao observarmos a Tabela \ref{table:epPeriodo1} é que, de modo geral, valores menores para o índice de distribuição geraram melhores resultados. Essa afirmação é verdadeira para todos algoritmos, porém, tendo uma ressalva em relação ao algoritmo SMPSO, que obteve resultados muito próximos com os índices de valor $1.0$ e $10.0$. Nota-se que apesar de uma mediana com valor ligeiramente menor para o índice $10.0$, seu desvio padrão também é ligeiramente maior. Assim, indica-se baixa variação nos resultados do algoritmo SMPSO com relação à alteração do parâmetro de índice de distribuição de seu operador de mutação.
 
-Por outro lado, a diferença nos resultados dos outros algoritmos é considerável. Observa-se grande diferença entre os resultados dos algoritmos com índice $1,0$ em relação aos outros valores e uma pequena diferença entre os valores $10,0$ e $20,0$. Por fim, conclui-se que, pelo menos em relação a esse período e esse indicador, o valor $1,0$ é o melhor valor encontrado para a operação desses algoritmos com esse problema específico. Lembrando que o valor desse parâmetro funciona de tal forma que quanto menor ele seja, mais distantes poderão ser as soluções criadas através de cruzamentos e mutações. Isso permite maior exploração em troca de uma convergência mais lenta.
+Por outro lado, a diferença nos resultados dos outros algoritmos é considerável. Observa-se grande diferença entre os resultados dos algoritmos com índice $1.0$ em relação aos outros valores e uma pequena diferença entre os valores $10.0$ e $20.0$. Por fim, conclui-se que, pelo menos em relação a esse período e esse indicador, o valor $1.0$ é o melhor valor encontrado para a operação desses algoritmos com esse problema específico. Lembrando que o valor desse parâmetro funciona de tal forma que quanto menor ele seja, mais distantes poderão ser as soluções criadas através de cruzamentos e mutações. Isso permite maior exploração em troca de uma convergência mais lenta.
 
 Além disso, podemos notar que o claro vencedor nesse período de acordo com esse indicador foi o algoritmo MOCell, seguido pelo NSGA-II. Vale lembra que o \textit{I}$^{1}_{\epsilon+}$ mede apenas a convergência desses algoritmos em relação a frente de pareto de referência. Ou seja, mede o quão próximo seus resultados ficaram dessa referência, sendo melhor um resultado menor.
 
@@ -55,7 +47,7 @@ Voltando nossa atenção aos algoritmos de enxame de partículas, o OMOPSO obteve m
 
 Apesar desses resultados, a convergência não é o único aspecto importante em uma frente de pareto. Devemos observar a diversidade das soluções apresentadas. Afinal, o grande propósito na solução de problemas multiobjetivos é gerar diversas opções aos operadores do sistema, para que esses possam decidir a solução a ser adotada. Para avaliar esse aspecto das soluções, disponibiliza-se a Tabela \ref{table:spreadPeriodo1}.
 
-\begin{table}[h]
+\begin{table}[!t]
 \caption{Mediana e Desvio Padrão do Indicador SPREAD ($\Delta$) do primeiro período}
 \label{table:spreadPeriodo1}
 \centering
@@ -81,7 +73,7 @@ Com os resultados do Indicador $\Delta$, notamos resultados opostos aos encontra
 
 Quanta à análise dos valores de índice de distribuição, em mais um indicador tivemos o mesmo resultado: o valor menor obteve melhores resultados. Isso indica que realmente uma exploração mais intensa do espaço de soluções é algo benéfico na solução desse problema específico.
 
-\begin{table}[h]
+\begin{table}[!t]
 \caption{Mediana e Desvio Padrão do Indicador de Hipervolume (HV) do primeiro período}
 \label{table:hvPeriodo1}
 \centering
@@ -104,13 +96,13 @@ Quanta à análise dos valores de índice de distribuição, em mais um indicador tiv
 \end{tabular}
 \end{table}
 
-Para continuar a análise desse período, a Tabela \ref{table:hvPeriodo1} mostra o resultados dos algoritmos para o Indicador de Hipervolume. Esse indicador, como abordado na Seção \ref{sec:hv}, tem a propriedade única que avaliar ao mesmo tempo a convergência, a diversidade a ainda a cardinalidade das soluções. Esse indicador mede o tamanho do espaço objetivo coberto pela aproximação da frente de pareto em relação à frente de pareto de referência. Isso é feito através de um ponto de referência adotado. Note ainda que, diferente dos indicadores anteriores, esse tem como melhor valor aqueles maiores.
+Para continuar a análise desse período, a Tabela \ref{table:hvPeriodo1} mostra o resultados dos algoritmos para o Indicador de Hipervolume. Esse indicador tem a propriedade única que avaliar ao mesmo tempo a convergência, a diversidade a ainda a cardinalidade das soluções. Esse indicador mede o tamanho do espaço objetivo coberto pela aproximação da frente de pareto em relação à frente de pareto de referência. Isso é feito através de um ponto de referência adotado. Note ainda que, diferente dos indicadores anteriores, esse tem como melhor valor aqueles maiores.
 
 Ao observarmos os resultados desse indicador, notamos que novamente os algoritmos evolucionários foram obtiveram melhores resultados que os de enxame de partículas. Porém, esse indicador muda um pouco a ordem dos melhores algoritmos. Nesse caso, o NSGA-II foi obteve o melhot resultado de todos, sendo seguido, dessa vez, pelo SPEA2 e por último o MOCell, que havia obtido os melhores resultados de acordo com as métricas anteriores. Porém, a diferença dos resultados desses três algoritmos é pequena de acordo com essa métrica.
 
 Voltando nossa atenção aos algoritmos de enxame de Partículas, notamos que novamente o OMOPSO superou seu sucesso, SMPSO. Seu resultado foi razoavelmente melhor nessa métrica, assim como na \textit{I}$^{1}_{\epsilon+}$. Isso indica que, em relação a seu antecessor, o SMPSO conseguiu ser melhor apenas na distribuição das soluções nesse problema em específico.
 
-Para essa métrica, houve grande diferença ao analisarmos os valores de índice de distribuição. Não houve mais o padrão de que um menor índice rendesse melhores resultados. Esse comportamento variou de acordo com o algoritmo estudado. Sendo que enquanto o melhor valor para o NSGA-II foi de $1,0$, o melhor valor do SPEA2 foi justamente o oposto: $20,0$. Já no caso do MOCell, não só o valor de $1,0$ foi melhor, como os outros valores geraram resultados consideravelmente inferiores em relação à essa métrica.
+Para essa métrica, houve grande diferença ao analisarmos os valores de índice de distribuição. Não houve mais o padrão de que um menor índice rendesse melhores resultados. Esse comportamento variou de acordo com o algoritmo estudado. Sendo que enquanto o melhor valor para o NSGA-II foi de $1.0$, o melhor valor do SPEA2 foi justamente o oposto: $20.0$. Já no caso do MOCell, não só o valor de $1.0$ foi melhor, como os outros valores geraram resultados consideravelmente inferiores em relação à essa métrica.
 
 Se compararmos os melhores resultados para cada algoritmo, o NSGA-II saiu vencedor com uma consideravel vantagem. Enquanto isso, SPEA2 e MOCell obtiveram resultados bem próximos. Já o OMOPSO e o SMPSO obtiveram resultados bem inferiores em relação aos algoritmos evolucionários.
 
@@ -130,36 +122,36 @@ Além disso, o MOCell também deu maiores opções com maior armazenamento final do 
 
 As Figuras \ref{fig:paretoSPREAD1} e \ref{fig:paretoHV1}, apesar de utilizar indicadores diferentes na seleção de qual execução de cada algoritmo a ser utilizada no gráfico, apresentam os mesmos comportamentos. Novamente, o SMPSO se destaca no aspecto de distribuição de soluções, mas tem suas soluções dominas pelos demais algoritmos. O NSGA-II apresenta as melhores soluções, seguido pelo SPEA2. E o MOCell apresenta um bom compromisso entre os dois aspectos: convergência e distribuição de soluções.
 
-\begin{sidewaysfigure}[h]
+\begin{figure}[!t]
   \centering
   \caption{Frentes de Pareto das Medianas do Indicador \textit{I}$^{1}_{\epsilon+}$ do primeiro período}
   \resizebox{\columnwidth}{!}{\input{./fig/Frente-de-Pareto_EP_1.pdf_tex}}
   \label{fig:paretoEP1}
-\end{sidewaysfigure}
+\end{figure}
 
-\begin{sidewaysfigure}[h]
+\begin{figure}[!t]
   \centering
   \caption{Frentes de Pareto das Medianas do Indicador $\Delta$ do primeiro período}
   \resizebox{\columnwidth}{!}{\input{./fig/Frente-de-Pareto_SPREAD_1.pdf_tex}}
   \label{fig:paretoSPREAD1}
-\end{sidewaysfigure}
+\end{figure}
 
-\begin{sidewaysfigure}[h]
+\begin{figure}[!t]
   \centering
   \caption{Frentes de Pareto das Medianas do Indicador HV do primeiro período}
   \resizebox{\columnwidth}{!}{\input{./fig/Frente-de-Pareto_HV_1.pdf_tex}}
   \label{fig:paretoHV1}
-\end{sidewaysfigure}
+\end{figure}
 
-\section{Perí­odo 1961-1966}
+\subsection{Perí­odo 1961-1966}
 
 Este é um período de vazões medianas. Portanto, espera-se melhores resultados de todos os algoritmos. Poderemos assim, avaliar o comportamento dos mesmo em uma situação de menor dificuldade do que a apresentada anteriormente.
 
-Como pode ser visto na Tabela \ref{table:epPeriodo2}, os resultados do período anterior se mantiveram ao analisarmos o indicador \textit{I}$^{1}_{\epsilon+}$. Em relação ao índice de distribuição, o valor de $1,0$ continua sendo o melhor em todos os algoritmos. Entretanto, deve-se notar que a diferença dos resultados teve uma considerável acentuada, sendo que aqueles com valor $1,0$ acabaram obtendo resultados expressivamente melhores do que os demais.
+Como pode ser visto na Tabela \ref{table:epPeriodo2}, os resultados do período anterior se mantiveram ao analisarmos o indicador \textit{I}$^{1}_{\epsilon+}$. Em relação ao índice de distribuição, o valor de $1.0$ continua sendo o melhor em todos os algoritmos. Entretanto, deve-se notar que a diferença dos resultados teve uma considerável acentuada, sendo que aqueles com valor $1.0$ acabaram obtendo resultados expressivamente melhores do que os demais.
 
 Comparando os algoritmos de enxame de partículas, observamos o mesmo do que no período passado. Novamente, o vencedor foi o OMOPSO de acordo com o Indicador \textit{I}$^{1}_{\epsilon+}$. Da mesma forma, se mantiveram os resultados dos algoritmos evolucionários, em que o MOCell se manteve à frente, seguido pelo NSGA-II e o SPEA2.
 
-\begin{table}[h]
+\begin{table}[!t]
 \caption{Mediana e Desvio Padrão do Indicador Epsilon Aditivo (\textit{I}$^{1}_{\epsilon+}$) do segundo período.}
 \label{table:epPeriodo2}
 \centering
@@ -184,7 +176,7 @@ Comparando os algoritmos de enxame de partículas, observamos o mesmo do que no p
 
 Os resultados começam a se diferenciar do período anterior ao anarlisarmos o Indicador $\Delta$. Como pode ser visto na Tabela \ref{table:spreadPeriodo2}, os resultados dos algoritmos foram bem próximos nessa métrica. Entretanto, diferente do período anterior, quem se destacou foi o MOCell e o OMOPSO. Vale lembrar que os dois melhores do período anterior foram o SMPSO e o OMOPSO, respectivamente. Isso demonstra que nesse problema de dificuldade mediana, o SMPSO acabou perdendo no aspecto de distribuição, que foi seu melhor atributo no primeiro período.
 
-\begin{table}[h]
+\begin{table}[!t]
 \caption{Mediana e Desvio Padrão do Indicador SPREAD ($\Delta$) do segundo período}
 \label{table:spreadPeriodo2}
 \centering
@@ -209,7 +201,7 @@ Os resultados começam a se diferenciar do período anterior ao anarlisarmos o Ind
 
 Para finalizar, a Tabela \ref{table:hvPeriodo2} mostra os resultados desse período de acordo com o Indicador HV. Os resultados que apresentam o símbolo '-' indicam aqueles experimentos cujo valor de HV é 0, o que significa que o conjunto de soluções obtido está fora dos limites da Frente de Pareto de referência. Assim, dá-se o valor de 0 porque, caso contrário, os resultados obtidos não seriam confiáveis. Então, não será possível fazer a mesma análise feita no período anterior, visto que não obtivemos o valor de HV para todos algoritmos. Entretanto, com os resultados disponíveis, notamos uma diferença em relação ao período anterior, visto que dessa vez o MOCell superou o NSGA-II e o SPEA2 também nesse indicador. Mas antes das conclusões desse período, veremos os gráficos.
 
-\begin{table}[h]
+\begin{table}[!t]
 \caption{Mediana e Desvio Padrão do Indicador de Hipervolume (HV) do segundo período}
 \label{table:hvPeriodo2}
 \centering
@@ -234,26 +226,26 @@ Para finalizar, a Tabela \ref{table:hvPeriodo2} mostra os resultados desse perío
 
 Para concluir a análise desse período de dificuldade mediana, podemos verificar as Figuras \ref{fig:paretoEP2}, \ref{fig:paretoSPREAD2} e \ref{fig:paretoHV2}. Assim como feito no período anterior, foram utilizadas as medianas de cada algoritmo, incluindo apenas seu melhor valor do índice de distribuição. O detalhe aqui é que a Figura \ref{fig:paretoHV2} inclui apenas os algoritmos que puderam ser avaliados através do Indicador HV.
 
-\begin{sidewaysfigure}[h]
+\begin{figure}[!t]
   \centering
   \caption{Frentes de Pareto das Medianas do Indicador \textit{I}$^{1}_{\epsilon+}$ do segundo período}
   \resizebox{\columnwidth}{!}{\input{./fig/Frente-de-Pareto_EP_2.pdf_tex}}
   \label{fig:paretoEP2}
-\end{sidewaysfigure}
+\end{figure}
 
-\begin{sidewaysfigure}[h]
+\begin{figure}[!t]
   \centering
   \caption{Frentes de Pareto das Medianas do Indicador $\Delta$ do segundo período}
   \resizebox{\columnwidth}{!}{\input{./fig/Frente-de-Pareto_SPREAD_2.pdf_tex}}
   \label{fig:paretoSPREAD2}
-\end{sidewaysfigure}
+\end{figure}
 
-\begin{sidewaysfigure}[h]
+\begin{figure}[!t]
   \centering
   \caption{Frentes de Pareto das Medianas do Indicador HV do segundo período}
   \resizebox{\columnwidth}{!}{\input{./fig/Frente-de-Pareto_HV_2.pdf_tex}}
   \label{fig:paretoHV2}
-\end{sidewaysfigure}
+\end{figure}
 
 A primeira análise que podemos observar nessas figuras é que elas deixam claro a maior facilidade em resolver otimizar para esse segundo período. A própria Frente de Pareto de referência obteve valores maiores de 82\% de armazenamento final, enquanto otimizava o custo térmico. Inclusive, muitos resultados se encontraram muito próximos de 100\% de armazenamento. Mesmo na Figura \ref{fig:paretoSPREAD2}, que avalia a distribuição das soluções, os valores não foram mais baixos do que 70\%. Isso comprova que realmente os algoritmos tiveram maior facilidade na solução desse problema.
 
@@ -261,13 +253,13 @@ Quanto aos algoritmos de Enxame de Partículas, novamente o SMPSO um conjunto gra
 
 Os algoritmos evolucionários tiveram resultados similares. Novamente, as soluções do NSGA-II domina do SPEA2 e ambas dominam do MOCell. Entretanto, a distribuição de soluções do MOCell é muito maior. Se observarmos a Figura \ref{fig:paretoSPREAD2}, vemos que as soluções do NSGA-II e do SPEA2 ficaram na faixa de 95\% a 100\% de armazenamento, enquanto o MOCell demonstrou menores valores de custo térmico ao custo de um menor armazenamento final, indo até valores próximos de 70\%. Isso significa que, num caso de grande necessidade de redução de custos, o operador do sistema poderia escolher sacrificar mais do armazenamento final, o que não poderia ser feito nos demais algoritmos.
 
-\section{Perí­odo 1980-1985}
+\subsection{Perí­odo 1980-1985}
 
 Por último, analisaremos o período de tempo mais fácil de ser resolvido, devido à abundância de água gerada pelas cheias. Portanto, espera-se novamente que os resultados apresentem altos valores de armazenamento final com valores mais baixos de custo térmico.
 
 A partir da Tabela \ref{table:epPeriodo3}, podemos ver os resultados dos algoritmos de acordo com o Indicador \textit{I}$^{1}_{\epsilon+}$. Novamente, nota-se que os algoritmos de Enxame de Partículas ficaram muito atrás se comparados com os evolucionários. Além disso, os resultados se mantiveram parecidos com o que foi visto nos períodos anteriores. O melhor resultado para esse indicador foi novamente o MOCell, seguido do NSGA-II. Novamente, os índices de distribuição mais baixo obtiveram valores melhores.
 
-\begin{table}[h]
+\begin{table}[!t]
 \caption{Mediana e Desvio Padrão do Indicador Epsilon Aditivo (\textit{I}$^{1}_{\epsilon+}$) do terceiro período}
 \label{table:epPeriodo3}
 \centering
@@ -294,7 +286,7 @@ Uma diferença que podemos notar é que a diferença dos dois melhores algoritmos p
 
 Em relação à distribuição, que pode ser analisada através da Tabela \ref{table:spreadPeriodo3}, que mostra os resultados do Indicador $\Delta$, o MOCell continua bem à frente dos demais. Os outros algoritmos estão razoavelmente próximos nesse quesito. Também vale notar que o OMOPSO venceu seu sucessor SMPSO também nesse aspecto, nesse período.
 
-\begin{table}[h]
+\begin{table}[!t]
 \caption{Mediana e Desvio Padrão do Indicador SPREAD ($\Delta$) do terceiro período}
 \label{table:spreadPeriodo3}
 \centering
@@ -319,7 +311,7 @@ Em relação à distribuição, que pode ser analisada através da Tabela \ref{table:s
 
 Por fim, temos o último Indicador: Hipervolume. A Tabela \ref{table:hvPeriodo3} mostra os resultados dele. E como podemos ver, apenas dois algoritmos tiveram valor atribuído. O que significa que todos os outros tiveram sua extensão maiores do que a Frente de Pareto de referência. Porém, essa falta de valores, essa tabela reforça o fato do NSGA-II obter resultados que dominam os do MOCell. Diferente do segundo período, isso foi bem demonstrado tanto no primeiro quanto no terceiro período através do HV.
 
-\begin{table}[h]
+\begin{table}[!t]
 \caption{Mediana e Desvio Padrão do Indicador de Hipervolume (HV) do terceiro período}
 \label{table:hvPeriodo3}
 \centering
@@ -348,28 +340,28 @@ Focando primeiramente nos algoritmos de Enxame de Partículas, vemos que o OMOPSO
 
 Esses se aproximaram bem da Frente de Pareto. Mas, novamente, os melhores resultados foram do NSGA-II. Apesar que esse sempre apresenta uma distribuição bem menor do que o MOCell. O SPEA2 teve também bons resultados, mas esteve novamente atrás do NSGA-II e também não vence superior distribuição do MOCell.
 
-\begin{sidewaysfigure}[h]
+\begin{figure}[!t]
   \centering
   \caption{Frentes de Pareto das Medianas do Indicador \textit{I}$^{1}_{\epsilon+}$ do terceiro período}
   \resizebox{\columnwidth}{!}{\input{./fig/Frente-de-Pareto_EP_3.pdf_tex}}
   \label{fig:paretoEP3}
-\end{sidewaysfigure}
+\end{figure}
 
-\begin{sidewaysfigure}[h]
+\begin{figure}[!t]
   \centering
   \caption{Frentes de Pareto das Medianas do Indicador $\Delta$ do terceiro período}
   \resizebox{\columnwidth}{!}{\input{./fig/Frente-de-Pareto_SPREAD_3.pdf_tex}}
   \label{fig:paretoSPREAD3}
-\end{sidewaysfigure}
+\end{figure}
 
-\begin{sidewaysfigure}[h]
+\begin{figure}[!t]
   \centering
   \caption{Frentes de Pareto das Medianas do Indicador HV do terceiro período}
   \resizebox{\columnwidth}{!}{\input{./fig/Frente-de-Pareto_HV_3.pdf_tex}}
   \label{fig:paretoHV3}
-\end{sidewaysfigure}
+\end{figure}
 
-\section{Resultados Finais}
+\subsection{Resultados Finais}
 
 Por fim, podemos tratar dos resultados finais dos algoritmos apresentados e testados para o problema de otimização da operação de usinas hidrelétricas. Primeiramente, observamos que os algoritmos evolucionários se adaptaram muito melhor ao problema do que os de Enxame de Partículas, obtendo resultados melhores em todos os casos. Dentre os de Enxame de Partículas, o OMOPSO foi melhor do que o SMPSO, apesar da baixa quantidade de pontos em sua Frente de Pareto. Enquanto isso, o melhor algoritmo, sem dúvidas, foi o NSGA-II. Ele obteve os resultados mais próximos da Frente de Pareto de referência, sempre superior aos demais. O segundo melhor, apesar de ter suas soluções em parte dominadas pelo do SPEA2, foi o MOCell. Sua grande vantagem apresentada foi sua grande distribuição de soluções, o que permite alguns ajustes finos e uma maior gama de escolha ao operador do sistema.
 
