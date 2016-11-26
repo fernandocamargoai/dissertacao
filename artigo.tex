@@ -63,13 +63,15 @@
 % should be used if it is desired that the figures are to be displayed in
 % draft mode.
 %
-\documentclass[conference, letterpaper]{./IEEEtran}
+%\documentclass[conference, letterpaper]{./IEEEtran}
+\documentclass[peerreviewca, letterpaper]{./IEEEtran}
 % Add the compsoc option for Computer Society conferences.
 %
 % If IEEEtran.cls has not been installed into the LaTeX system files,
 % manually specify the path to it like:
 % \documentclass[conference]{../sty/IEEEtran}
 
+\usepackage[latin9]{inputenc}
 
 
 
@@ -412,7 +414,7 @@
 % affiliations
 \author{
 \IEEEauthorblockN{Fernando Henrique Fernandes de Camargo}
-\IEEEauthorblockA{Escola de Engenharia Elétrica,\\ Mecânica e de Computação\\
+\IEEEauthorblockA{Escola de Engenharia Elétrica, Mecânica e de Computação\\
 Universidade Federal de Goiás\\
 Goiânia, Goiás 74605--010\\
 Email: fernando.camargo.ti@gmail.com}
@@ -455,7 +457,7 @@ Email: fernando.camargo.ti@gmail.com}
 
 \begin{abstract}
 %\boldmath
-For a country like Brazil, which has hybrid resources as the major source of electricity, the optimization of the operation of the hydroelectric plants is extremely important and it's being studied recurrently. This problem has been formulated through optimization and simulation models. This article adresses the theme using a known model of optimization, while it applies two groups of multiobjective optimization algorithms in order to compare them and conclude which one is the best to solve the problem. They are NSGA-II, SPEA2 and MOCell, from the Evolutionary Algorithms family; and OMOPSO and SMPSO, from the Particle Swarm Optimization family.
+For countries like Brazil, which has hybrid resources as the major source of electricity, the optimization of the operation of the hydroelectric plants is extremely important and it's being studied recurrently. This problem has been formulated through optimization and simulation models. This article adresses the theme using a known model of optimization, while it applies two groups of multiobjective optimization algorithms in order to compare them and conclude which one is the best to solve the problem. They are the Evolutionary Algorithms: NSGA-II, SPEA2 and MOCell; and the Particle Swarm Optimization algorithms: OMOPSO and SMPSO.
 \end{abstract}
 % IEEEtran.cls defaults to using nonbold math in the Abstract.
 % This preserves the distinction between vectors and scalars. However,
@@ -482,14 +484,13 @@ hydrothermal systems; operation planning; metaheuristics; operational research
 % creates the second title. It will be ignored for other modes.
 \IEEEpeerreviewmaketitle
 
-\input{./tex/art/sec_I}
-\input{./tex/art/sec_II}
-\input{./tex/art/sec_III}
-\input{./tex/art/sec_IV}
-\input{./tex/art/sec_V}
-\input{./tex/art/sec_VI}
-\input{./tex/art/sec_VII}
-\input{./tex/art/sec_VIII}
+\input{./tex/art/sec_I_en}
+\input{./tex/art/sec_II_en}
+\input{./tex/art/sec_III_en}
+\input{./tex/art/sec_IV_en}
+\input{./tex/art/sec_V_en}
+\input{./tex/art/sec_VI_en}
+\input{./tex/art/sec_VII_en}
 
 
 % An example of a floating figure using the graphicx package.
@@ -575,23 +576,7 @@ hydrothermal systems; operation planning; metaheuristics; operational research
 % command of the stfloats package.
 
 
-
-\section{Conclusion}
-The conclusion goes here.
-
-
-
-
 % conference papers do not normally have an appendix
-
-
-% use section* for acknowledgement
-\section*{Acknowledgment}
-
-
-The authors would like to thank...
-
-
 
 
 

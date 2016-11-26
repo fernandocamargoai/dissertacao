@@ -1,0 +1,114 @@
+%\section{Estudos de Caso}
+\section{Study Cases}
+\label{cap:estudosDeCaso}
+
+%\subsection{Cenário de Teste}
+\subsection{Test Scenario}
+
+%O problema do planejamento energético foi simulado para um conjunto de 8 usinas hidrelétricas reais do sistema brasileiro, utilizando dados reais de três períodos de 60 meses: maio/1951 a abril/1956, maio/1961 a abril/1966 e maio/1980 a abril/1985. As usinas estão localizadas na Bacia do Rio Grande e Paranaíba. Elas estão esquematizadas na Figura \ref{fig:conjuntoUsinas} e suas características são apresentadas na Tabela \ref{table:conjuntoUsinas}. Os três períodos utilizadados aqui, também foram utilizados em \cite{gomides2012} e \cite{silva2014} devido às suas características únicas e relevantes para a otimização. O primeiro período é determinado por meses de seca, a vazão dos rios estava baixa e o custo de geração elétrica consequentemente se tornou maior, esse é o período mais importante utilizado neste estudo de caso, uma vez que é o que mais apresenta restrições à otimização do problema. O segundo e o terceiro período são caracterizados por vazões médias e altas dos rios, respectivamente.
+
+The problem of energy planning was simalted for a group of 8 real hydroelectric plants of the brazilian system, using real data of three periods of 60 months: from May/1951 to April/1956, from May/1961 to April/1966 and from May/1980 to April/1985. The plants are located in the Basin of the Rio Grande and Paranaíba. Their topology are shown in the Figure \ref{fig:conjuntoUsinas} and their characteristics are presented in the Table \ref{table:conjuntoUsinas}. These plants and periods were also used in \cite{gomides2012} and \cite{silva2014} because of their unique and relevant characteristics for the otimization. The first period is determined by dry months, when the rivers' flow were low and the cost of generation was consequently higher. This was the most important period of the study case, since it presents more restrictions to optimize the problem. The second and the third periods presents medium and high rivers' flow, respectively.
+
+\begin{figure}[!t]
+  \centering
+  \caption{Topology used in the study case}
+  \includegraphics[width=2.5in]{./fig/Conjunto-Usinas_en.pdf}
+  \label{fig:conjuntoUsinas}
+\end{figure}
+
+\begin{table}[!t]
+\caption{Group of hydroelectric plants of the study case}
+\label{table:conjuntoUsinas}
+\centering
+\begin{tabular}{lcc}
+    \hline
+    Plant                 & Potency (MW)   & Reservoir (hm$^{3}$)     \\ \hline
+    Furnas                & $1,312$        & $22,950$                 \\
+    Mascarenhas de Moraes & $478$          & $4,040$                  \\
+    Marimbondo            & $1,488$        & $6,150$                  \\
+    Água Vermelha         & $1,396.2$      & $11,025$                 \\
+    Emborcação            & $1,192$        & $17,725$                 \\
+    Itumbiara             & $2,280$        & $17,027$                 \\
+    São Simão             & $1,710$        & $12,540$                 \\
+    Ilha Solteira         & $3,444$        & $21,046.359375$          \\ \hline
+    Total                 & $13,300.2$     & $112,503.359375$         \\ \hline
+\end{tabular}
+\end{table}
+
+%Os estudos de casos precisam simular o atendimento da demanda por energia elétrica mensal, essa demanda de mercado ($D_{t}$) deve ser atendida pela combinação das gerações hidráulicas e térmicas. Para simplificar o processo de simulação, a demanda foi considerada constante e com valor $D_{t} = 14,000$. O mesmo valor foi utilizado nos estudos de \cite{gomides2012} e \cite{silva2014}. Em relação às chuvas e vazões, optou-se pela utilização de dados reais dos períodos citados. Assim, é possível calcular a geração hidrelétrica, obter a geração térmica necessária para se complementar a demanda e por fim calcular o custo térmico.
+
+The study cases must simulate the attending of the monthly demand of electric energy. This demand ($D_{t}$) must be attended by the hydroelectric and thermal generations. To simplify the simulation process, the demand was considered constant and with de value $D_{t} = 14,000$. The same value was used in the studies of \cite{gomides2012} and \cite{silva2014}. Regarding the rains and flows, we opted to use real data from the cited periods. This way, it's possible to calculate the hydroelectric generation, obtain the thermal generation necessary to attend the demand and lastly calculate the thermal cost.
+
+%Para o cálculo do custo térmico ($CT$), utilizou-se a Equação \ref{eq:calculoCustoTermico}, onde $gt_{t}$ representa a geração térmica total. Essa equação é uma adaptação da Equação \ref{eq:custoTermico}, onde $\alpha = \beta = 0$ e $\gamma = \frac{1}{2}$.
+
+To calculate the thermal cost ($CT$), we used the Equation \ref{eq:calculoCustoTermico}, where $gt_{t}$ represents the total thermal generation. This equation is an adaptation of the Equation \ref{eq:custoTermico}, where $\alpha = \beta = 0$ and $\gamma = \frac{1}{2}$.
+
+\begin{equation}\label{eq:calculoCustoTermico}
+ CT = f(gt_{t}) = \frac{1}{2}(gt_{t})^{2}
+\end{equation} 
+
+%\subsection{Arquitetura do Sistema}
+\subsection{System Architecture}
+
+%Para implementação dos algoritmos, foi utilizada a linguagem Java em conjunto com o framework JMetal \cite{durillo2011}, o qual disponibiliza diversos algoritmos de otimização orientados a objetos e toda um lógica de execução dos estudos com a criação de um relatório dos resultados ao fim. Seguindo a API desse framework, cada partícula do enxame/elemento da população foi implementada como um $DoubleSolution$, o qual é um objeto contendo um vetor de números reais. Para o problema apresentado, cada possível solução foi composta por um vetor de 480 números reais, os quais possuiam valores entre 0 e 1. Esses valores representam a turbinagem normalizada de determinada usina do conjunto em determinado mês dentro do período. Como cada período possui 60 meses e existem 8 usinas nesse estudo de caso, o vetor foi organizado em grupos de 60 número reais. Vale notar que a normalização dessa turbinagem ocorre através da divisão da quantidade turbinada pelo engolimento máximo da usina correspondente.
+
+To implement the algorithms, we used the Java language with the framework JMetal \cite{durillo2011}, which provides a lot of object oriented optimization algorithms and a toolkit to manage the study cases and generate reports. Following this framework's API, each particle of the swarm/element of the population was implemented as an $DoubleSolution$, which is an object containing an array of real numbers. Each possible solution was composed of an array of 480 real numbers, each of them having values between 0 and 1. These values represent the normalized turbination of each plant of the group in each month of the period. Since each period has 60 months and there are 8 plants, the array was organized in 8 groups of 60 real numbers. It's woth noting that the normalization of the turbination is done through the division of the turbination by the maximum swallowing of the corresponding plant.
+
+%Com essa composição das possíveis soluções, torna-se possível os cálculos que levam às duas variáveis a serem otimizadas: custo de operação e armazenamento final dos reservatórios. Esses cálculos foram executados para cada partícula do enxame/elemento da população pelo simulador de operação de usinas hidrelétricas disponibilizado por \cite{ramos2017}. Esse simulador possui um banco de dados com os dados das usinas hidrelétricas estudadas, bem como os dados de afluências ocorridas nos períodos do estudo. Assim, através da turbinagem de cada usina em cada mês em conjunto com os dados de afluências, ele é capaz de calcular os resultados para aquele mês. O simulador automaticamente reutiliza esses resultados para o cálculo dos meses seguintes e também das usinas a jusante. Assim, ele retorna os resultados de todos os meses de todas as usinas para dada simulação. Por fim, utiliza-se a potência total gerada e a demanda para o cálculo do custo de geração térmica (a ser minimizada) e soma-se o armazenamento final de todas as usinas (a ser maximizado).
+
+With this composition of the possible solutions, it's possible to calculate the two objective variables: operational cost and final volume of the reservoirs. This calculation was executed for each particle of the swarm/element of the population by the simulator of hydroelectric plant's operation from \cite{ramos2017}. This simulator has a database of the data of the studied hydroelectric plants and the affluences data of the studied periods. This way, with the turbination of each plant at each month and the affluences data, it's capable of calculating the results of each month for each plant. The simulator automatically uses these results to calculate the results of the next months and considers their effects to the downstream plants. Lastly, we use the total generated potency and the demand to calculate the thermal generation cost (to be minimized) and we sum up the final volume of the reservoirs of all the plants (to be maximized).
+
+%\subsection{Parâmetros Utilizados nos Algoritmos}
+\subsection{Parametrization of the Algorithms}
+\label{sec:parametrosUtilizados}
+
+%Com o fim de tornar a comparação entre esses algoritmos mais justa, foram utilizados os parâmetros exibidos na Tabela \ref{table:parametrosUtilizados}. Esses foram os mesmos utilizados na avaliação desses mesmos algoritmos (com a adição do AbYSS) feita por \cite{nebro2009} através de conhecidos benchmarks.
+
+With the goal of making the comparison of the algorithms fair, we used the parametrization shown in the Table \ref{table:parametrosUtilizados}. This parametrization was the same used in the evaluation of these algorithms (plus the AbYSS) done by \cite{nebro2009} through known benchmarks.
+
+\begin{table}[!t]
+\caption{Parametrization of the Algorithms ($L$ = individual length)}
+\label{table:parametrosUtilizados}
+\centering
+\begin{tabular}{ll}
+    \hline
+    \multicolumn{2}{l}{Parametrization used in NSGA-II}                      \\ \hline
+    Population Size                & 100 individuals                         \\
+    Selection of Parents           & binary tournament + binary tournament   \\
+    Recombination                  & simulated binary (SBX), $p_{c} = 0.9$   \\
+    Mutation                       & polynomial, $p_{m} = 1.0/L$             \\
+    \hline
+    \multicolumn{2}{l}{Parametrization used in SPEA2}                        \\ \hline
+    Population Size                & 100 individuals                         \\
+    Selection of Parents           & binary tournament + binary tournament   \\
+    Recombination                  & simulated binary (SBX), $p_{c} = 0.9$   \\
+    Mutation                       & polynomial, $p_{m} = 1.0/L$             \\
+    \hline
+    \multicolumn{2}{l}{Parametrization used in MOCell}                       \\ \hline
+    Population Size                & 100 individuals(10 x 10)                \\
+    Neighborhood                   & 1-hop neighbours (8 surrounding solutions)\\
+    Selection of Parents           & binary tournament + binary tournament   \\
+    Recombination                  & simulated binary (SBX), $p_{c} = 0.9$   \\
+    Mutation                       & polynomial, $p_{m} = 1.0/L$             \\
+    Archive size                   & 100 individuals                         \\
+    \hline
+    \multicolumn{2}{l}{Parametrization used in OMOPSO}                       \\ \hline
+    Swarm Size                     & 100 particles                           \\
+    Mutation                       & uniform + non-uniform                   \\
+    Leaders Size                   & 100                                     \\
+    \hline
+    \multicolumn{2}{l}{Parametrization used in SMPSO}                        \\ \hline
+    Swarm Size                     & 100 particles                           \\
+    Mutation                       & polynomial, $p_{m} = 1.0/L$             \\
+    Archive size                   & 100 individuals                         \\
+    \hline
+\end{tabular}
+\end{table}
+
+%Além desses parâmetros, existe um parâmetro implícito utilizado na mutação polinomial e na recombinação binária simulada (SBX), operadores presentes em todos os algoritmos, com exceção do OMOPSO que não possui esses operadores e o SMPSO que possui apenas a mutação polinomial. Esse parâmetro é chamado de índice de distribuição, possui valor real acima de $0$ e geralmente assume o valor padrão de $20.0$. Esse índice trabalha nesses operadores de mutação e recombinação de tal forma que, quanto menor seu valor, maior será a diversidade dos novos indivíduos criados, aumentando a exploração do ambiente por parte dos algoritmos de busca. Para este trabalho, três valores diferentes foram adotados na avaliação dos algoritmos: $1.0$, $10.0$ e $20.0$. Dessa forma, cada algoritmo (que possua esse parâmetro) foi avaliado três vezes distintas, cada uma com um desses valores de índice de distribuição.
+
+Beyond these parameters, there's an implicit parameter used by the polynomial mutation and the simulated binary recombination (SBX), operators used by most of these algorithms. This parameter is known as distribution index and it assumes a real number above $0.0$ as its value, usually having the default value of $20.0$. The distribution index works in those mutation and recombination operators in a way that the lesser its value, the greater will be the diversity of the new individuals created, which increases the exploration of the enviroment by the search algorithms. For this article, three different values were adopted in the evaluation of the algorithms: $1.0$, $10.0$ and $20.0$. This way, each algorithm (which contains this parameter) was evaluated three times, one for each value of distribution index.
+
+%Por fim, os algoritmos testados continham uma população de 100 partículas/indivíduos, como mostrado na Tabela \ref{table:parametrosUtilizados}, e cada execução continha 500 iterações. Foram realizadas 25 execuções de cada par de algoritmo e índice de distribuição para cada periodo considerado neste trabalho.
+
+Lastly, the evaluated algorithms presents a population of 100 particles/individuals, as shown in the Table \ref{table:parametrosUtilizados}, and each execution has 500 iterations. Each pair of algorithm and distribution index was executed 25 times for each period.

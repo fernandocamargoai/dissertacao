@@ -1,2 +1,94 @@
-\section{DescriÃ§Ã£o dos Algoritmos Avaliados}
-\label{cap:sistemasHidrotermicos} 
+\section{Estudos de Caso}
+\label{cap:estudosDeCaso}
+
+\subsection{Cenário de Teste}
+
+O problema do planejamento energético foi simulado para um conjunto de 8 usinas hidrelétricas reais do sistema brasileiro, utilizando dados reais de três períodos de 60 meses: maio/1951 a abril/1956, maio/1961 a abril/1966 e maio/1980 a abril/1985. As usinas estão localizadas na Bacia do Rio Grande e Paranaíba. Elas estão esquematizadas na Figura \ref{fig:conjuntoUsinas} e suas características são apresentadas na Tabela \ref{table:conjuntoUsinas}. Os três períodos utilizadados aqui, também foram utilizados em \cite{gomides2012} e \cite{silva2014} devido às suas características únicas e relevantes para a otimização. O primeiro período é determinado por meses de seca, a vazão dos rios estava baixa e o custo de geração elétrica consequentemente se tornou maior, esse é o período mais importante utilizado neste estudo de caso, uma vez que é o que mais apresenta restrições à otimização do problema. O segundo e o terceiro período são caracterizados por vazões médias e altas dos rios, respectivamente.
+
+\begin{figure}[!t]
+  \centering
+  \caption{Topologia usada nos Estudos de Caso}
+  \includegraphics[width=2.5in]{./fig/Conjunto-Usinas.pdf}
+  \label{fig:conjuntoUsinas}
+\end{figure}
+
+\begin{table}[!t]
+\caption{Conjunto de Usinas Hidrelétricas estudadas}
+\label{table:conjuntoUsinas}
+\centering
+\begin{tabular}{lcc}
+    \hline
+    Usina                 & Potência (MW)  & Reservatório (hm$^{3}$)  \\ \hline
+    Furnas                & $1,312$        & $22,950$                 \\
+    Mascarenhas de Moraes & $478$          & $4,040$                  \\
+    Marimbondo            & $1,488$        & $6,150$                  \\
+    Água Vermelha         & $1,396.2$      & $11,025$                 \\
+    Emborcação            & $1,192$        & $17,725$                 \\
+    Itumbiara             & $2,280$        & $17,027$                 \\
+    São Simão             & $1,710$        & $12,540$                 \\
+    Ilha Solteira         & $3,444$        & $21,046.359375$          \\ \hline
+    Total                 & $13,300.2$     & $112,503.359375$         \\ \hline
+\end{tabular}
+\end{table}
+
+Os estudos de casos precisam simular o atendimento da demanda por energia elétrica mensal, essa demanda de mercado ($D_{t}$) deve ser atendida pela combinação das gerações hidráulicas e térmicas. Para simplificar o processo de simulação, a demanda foi considerada constante e com valor $D_{t} = 14,000$. O mesmo valor foi utilizado nos estudos de \cite{gomides2012} e \cite{silva2014}. Em relação às chuvas e vazões, optou-se pela utilização de dados reais dos períodos citados. Assim, é possível calcular a geração hidrelétrica, obter a geração térmica necessária para se complementar a demanda e por fim calcular o custo térmico.
+
+Para o cálculo do custo térmico ($CT$), utilizou-se a Equação \ref{eq:calculoCustoTermico}, onde $gt_{t}$ representa a geração térmica total. Essa equação é uma adaptação da Equação \ref{eq:custoTermico}, onde $\alpha = \beta = 0$ e $\gamma = \frac{1}{2}$.
+
+\begin{equation}\label{eq:calculoCustoTermico}
+ CT = f(gt_{t}) = \frac{1}{2}(gt_{t})^{2}
+\end{equation} 
+
+\subsection{Arquitetura do Sistema}
+
+Para implementação dos algoritmos, foi utilizada a linguagem Java em conjunto com o framework JMetal \cite{durillo2011}, o qual disponibiliza diversos algoritmos de otimização orientados a objetos e toda um lógica de execução dos estudos com a criação de um relatório dos resultados ao fim. Seguindo a API desse framework, cada partícula do enxame/elemento da população foi implementada como um $DoubleSolution$, o qual é um objeto contendo um vetor de números reais. Para o problema apresentado, cada possível solução foi composta por um vetor de 480 números reais, os quais possuiam valores entre 0 e 1. Esses valores representam a turbinagem normalizada de determinada usina do conjunto em determinado mês dentro do período. Como cada período possui 60 meses e existem 8 usinas nesse estudo de caso, o vetor foi organizado em grupos de 60 número reais. Vale notar que a normalização dessa turbinagem ocorre através da divisão da quantidade turbinada pelo engolimento máximo da usina correspondente.
+
+Com essa composição das possíveis soluções, torna-se possível os cálculos que levam às duas variáveis a serem otimizadas: custo de operação e armazenamento final dos reservatórios. Esses cálculos foram executados para cada partícula do enxame/elemento da população pelo simulador de operação de usinas hidrelétricas disponibilizado por \cite{ramos2017}. Esse simulador possui um banco de dados com os dados das usinas hidrelétricas estudadas, bem como os dados de afluências ocorridas nos períodos do estudo. Assim, através da turbinagem de cada usina em cada mês em conjunto com os dados de afluências, ele é capaz de calcular os resultados para aquele mês. O simulador automaticamente reutiliza esses resultados para o cálculo dos meses seguintes e também das usinas a jusante. Assim, ele retorna os resultados de todos os meses de todas as usinas para dada simulação. Por fim, utiliza-se a potência total gerada e a demanda para o cálculo do custo de geração térmica (a ser minimizada) e soma-se o armazenamento final de todas as usinas (a ser maximizado).
+
+\subsection{Parâmetros Utilizados nos Algoritmos}
+\label{sec:parametrosUtilizados}
+
+Com o fim de tornar a comparação entre esses algoritmos mais justa, foram utilizados os parâmetros exibidos na Tabela \ref{table:parametrosUtilizados}. Esses foram os mesmos utilizados na avaliação desses mesmos algoritmos (com a adição do AbYSS) feita por \cite{nebro2009} através de conhecidos benchmarks.
+
+\begin{table}[!t]
+\caption{Parâmetros utilizados nos Algoritmos ($L$ = tamanho do indivíduo)}
+\label{table:parametrosUtilizados}
+\centering
+\begin{tabular}{ll}
+    \hline
+    \multicolumn{2}{l}{Parâmetros utilizados no NSGA-II}                     \\ \hline
+    Tamanho da População           & 100 indivíduos                          \\
+    Seleção de Pais                & torneio binário + torneio binário       \\
+    Recombinação                   & binária simulada (SBX), $p_{c} = 0.9$   \\
+    Mutação                        & polinomial, $p_{m} = 1.0/L$             \\
+    \hline
+    \multicolumn{2}{l}{Parâmetros utilizados no SPEA2}                       \\ \hline
+    Tamanho da População           & 100 indivíduos                          \\
+    Seleção de Pais                & torneio binário + torneio binário       \\
+    Recombinação                   & binária simulada (SBX), $p_{c} = 0.9$   \\
+    Mutação                        & polinomial, $p_{m} = 1.0/L$             \\
+    \hline
+    \multicolumn{2}{l}{Parâmetros utilizados no MOCell}                      \\ \hline
+    Tamanho da População           & 100 indivíduos (10 x 10)                \\
+    Vizinhança                     & 1 salto (8 soluções em torno)           \\
+    Seleção de Pais                & torneio binário + torneio binário       \\
+    Recombinação                   & binária simulada (SBX), $p_{c} = 0.9$   \\
+    Mutação                        & polinomial, $p_{m} = 1.0/L$             \\
+    Tamanho do Arquivo             & 100 indivíduos                          \\
+    \hline
+    \multicolumn{2}{l}{Parâmetros utilizados no OMOPSO}                      \\ \hline
+    Tamanho do Enxame              & 100 partículas                          \\
+    Mutação                        & uniforme + não uniforme                 \\
+    Tamanho dos Líderes            & 100                                     \\
+    \hline
+    \multicolumn{2}{l}{Parâmetros utilizados no SMPSO}                       \\ \hline
+    Tamanho do Enxame              & 100 partículas                          \\
+    Mutação                        & polinomial, $p_{m} = 1.0/L$             \\
+    Tamanho do Arquivo             & 100 indivíduos                          \\
+    \hline
+\end{tabular}
+\end{table}
+
+Além desses parâmetros, existe um parâmetro implícito utilizado na mutação polinomial e na recombinação binária simulada (SBX), operadores presentes em todos os algoritmos, com exceção do OMOPSO que não possui esses operadores e o SMPSO que possui apenas a mutação polinomial. Esse parâmetro é chamado de índice de distribuição, possui valor real acima de $0$ e geralmente assume o valor padrão de $20.0$. Esse índice trabalha nesses operadores de mutação e recombinação de tal forma que, quanto menor seu valor, maior será a diversidade dos novos indivíduos criados, aumentando a exploração do ambiente por parte dos algoritmos de busca. Para este trabalho, três valores diferentes foram adotados na avaliação dos algoritmos: $1.0$, $10.0$ e $20.0$. Dessa forma, cada algoritmo (que possua esse parâmetro) foi avaliado três vezes distintas, cada uma com um desses valores de índice de distribuição.
+
+Por fim, os algoritmos testados continham uma população de 100 partículas/indivíduos, como mostrado na Tabela \ref{table:parametrosUtilizados}, e cada execução continha 500 iterações. Foram realizadas 25 execuções de cada par de algoritmo e índice de distribuição para cada periodo considerado neste trabalho.

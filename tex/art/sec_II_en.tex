@@ -1,0 +1,49 @@
+%\section{O Problema do Planejamento Energético de Sistemas Hidrotérmicos}
+\section{The Problem of Scheduling of Hydrothermal Systems}
+
+%A geração energética de uma hidrelétrica é dependente das decisões de operação anteriores, as quais interferem no estado dos reservatorios de água. Ou seja, trata-se de um problema dinâmico de otimização envolvendo o tempo, de forma que cada decisão influenciará no futuro. Isso, por si só, já torna o problema mais complexo, visto que temos que maximizar a produção nos preocupando com o armazenamento.
+
+The energy generation of a hydroelectric plant is dependent of past operation decisions, which interfere in the state of the reservoirs of water. It means that this is a dynamic optimization problem involving time in a way that each decision influences the future. By itself, it already turns the problem into a more complex one, given that it's necessary to maximize the production of energy while worrying with the storage of water.
+
+%Deve-se destacar que uma matriz hidrotérmica funciona primariamente com geração hidríca, utilizando geração térmica apenas como backup, sendo que a hidríca possui custo fixo e a térmica possui custo variável. Isso devido ao alto custo dos combustíveis. Portanto, o objetivo é que as hidrelétricas sejam operadas de modo a minimizar a suplementação através de usinas térmicas. Assim, o objetivo do problema é a minimização do custo total de produção, que pode ser reduzido ao custo de produção térmica \cite{yu1998}.
+
+It's important to highlight that a Hydrothermal matrix works primarily with hydro generation, using thermal generation only as a backup. It's because hydroelectric plants have fixed cost of maintenance, while the thermal plants have a variable cost, suffering with the high cost of fuel. Therefore, the problem focuses in improving the operation of hydroelectric plants to minimize the use of thermal plants. So, the objective funcion of the problem is the minimization of the total cost of production, that can be reduced to the thermal generation cost \cite{yu1998}.
+
+%Quando múltiplas usinas se situam na mesma bacia hidrográfica, há um claro acoplamento entre elas, visto que a água liberada por uma usina seguirá para o armazenamento da usina seguinte. Isso faz com que esse seja um problema não separável, caracterizado por um sistema interconectado de usinas hidrelétricas. Além disso, a função objetivo é não linear, assim como o custo de geração térmica, e não convexa em toda sua região de abrangência \cite{carneiro1997}. Por fim, este é também um problema estocástico, devido à aleatoriedade das vazões. Concluindo-se, assim, que trata-se de um problema de otimização de um sistema dinâmico, não separável, não linear, não convexo e de grande porte \cite{soares1991}.
+
+When multiple plants are in the same hydrographic basin, there's a clear coupling between them, since the water released from one of them will follow to the reservoir of the next one. This makes the problem to be inseparable, characterized by an interconnected system of hydroelectric plants. Furthermore, the objective function is nonlinear, like the thermal generation cost, and non convex on its whole region \cite{carneiro1997}. Lastly, this is also a stochastic problem, because of the randomness of the water availability. So, this is a optimization problem of a dynamic system, inseparable, nonlinear, non convex and of large proportion \cite{soares1991}.
+
+%A solução desse problema será a determinação de uma estratégia de geração para cada usina de interconectada, de forma a minimizar o valor esperado dos custos operativos no período do planejamento e atenda a demanda dentro de um limite de confiabilidade \cite{fortunato1990}. A demanda a ser cumprida é determinada pelo governo do país, de acordo com as previsões realizadas por órgãos competentes.
+
+The solution of this problema will be the determination of a generation strategy for each interconnected plant, in a way that minimizes the operational costs in the planning period and attends the demand within a confiability limit \cite{fortunato1990}. The demand to be attended is determined by the government of the country, given the predictions made by the suitable departments.
+
+%Por ser um problema de grande complexidade, envolvendo fatores temporais e espaciais, a adoção de um único modelo para solução do planejamento torna-se inviável. Por isso, as metodologias aplicadas atualmente sugerem uma decomposição do planejamento em diferentes escalas de tempo \cite{pereira1985}. Isso porque, de acordo com a escala de tempo adotada, determinadas características são levadas em consideração, enquanto outras podem ser ignoradas, sendo resolvidas posteriormente.
+
+For being a problem of great complexity, involving temporal and spatial factors, the adoption of a single model to solve the planning is unfeasible. Because of that, methodologies applied currently suggest a decomposition of the planning in different time scales \cite{pereira1985}. This way, according to the time scale adopted, certain characteristics are taken into consideration, while others can be ignored and solved afterward.
+
+%Assim, para se resolver o problema como um todo, concatena-se um conjunto de modelos computacionais, os quais resolvem parcialmente o problema em diferentes horizontes de planejamento. A essa técnica, é dado o nome de cadeia de coordenação hidrotérmica da operação. O resultado de sua aplicação é uma sequência de decisões de geração que minimizem o custo da operação, garantindo o atendimento da demanda com confiabilidade, levando-se em conta o compromisso entre decisões de geração no presente, que irão afetar as decisões no futuro \cite{silva2014}.
+
+Therefore, to solve this problem as a whole, we concatenate a set of computational models, that solve partially the problem in different horizons of planning. This technique is named the chain of hydrothermal coordination of operation. The result of its application is the sequence of generation decisions that minimizes the operational cost, ensuring the attending of the demand with confiability, taking into consideration the compromise with the present generation decisions, that will affect the future decisions \cite{silva2014}.
+
+%Diversos modelos de cadeias de coordenação hidrotérmica foram apresentados na literatura. A seguir, na Figura \ref{fig:decomposicaoTemporal}, dispôe-se aquela utilizada neste artigo, a qual apresenta uma possível decomposição temporal do problema e os modelos com diferentes horizontes de planejamento e graus de detalhamento do sistema.
+
+Several models of chains of hydrothermal coordination have been presented in the literature. The Figure \ref{fig:decomposicaoTemporal} shows the one used in this article, which presents a possible time decomposition of the problem and the models with different horizons of planning and degrees of detail of the system.
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=2.5in]{./fig/Decomposicao-Temporal_en.pdf}
+  \caption{Time decomposition of the problem \cite{junior1998}}
+  \label{fig:decomposicaoTemporal}
+\end{figure}
+
+%O objetivo dessa abordagem é fazer uma decomposição temporal do problema em períodos distintos, de forma que alguns fatores são levados em consideração e outros são ignorados de acordo com o período em questão. A sequência de solução é de períodos maiores para menores, de forma que o resultado obtido para um período de mais longo prazo serve de metas a serem atingidas para um período de mais curto prazo.
+
+The goal of this approach is to make a time decomposition of the problem in distincts periods, in a way that some factors are taken into consideration and others are ignored according to the present period. The periods are solved from the largest to the smallest, in a way that the results obtained for a longer term periods are used as goals to be achieved by the shorter term periods.
+
+%Nosso interesse neste artigo está no Planejamento de Médio Prazo - PMP, o qual abrange um horizonte de alguns meses, com discretização mensal ou semanal. Com um grau de incerteza razoável, o problema é tratado como determinístico, e tem como objetivo a determinação de uma política de operação individualizada, que considere o acoplamento hidráulico e possíveis diversidades hidrológicas entre os rios. As afluências e demanda utilizadas podem ser previstas por modelos de séries temporais \cite{silva2014}.
+
+The interest of this article is in the Mid-Term Planning, which covers a horizon of some months, with monthly or weekly discretization. With a reasonable degree of uncertainty, the problem is treated as deterministic and its goal is to determine an individual operation policy, which considers the hydraulic coupling and possible hydrological diversities between the rivers. The affluences and demand can be predicted with time series models \cite{silva2014}.
+
+%Neste artigo, adotaremos um horizonte de alguns anos, com discretização mensal e usaremos vazões históricas conhecidas, as quais poderiam ser obtidas por modelos de previsão.
+
+In this article, we'll adopt a horizon of some years, with monthly discretization and known historical affluences will be used.
