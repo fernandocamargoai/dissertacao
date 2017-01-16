@@ -96,9 +96,30 @@
  number = {2}
 }
 
+@Article{durillo2011,
+ author = {Juan J. Durillo and Antônio J. Nebro},
+ title = {jMetal: A Java framework for multi-objective optimization},
+ journal = {Advances in Engineering Software},
+ year = {2011},
+ volume = {42},
+ number = {10},
+ pages = {760-771},
+ issn = {0965-9978},
+ url = {http://www.sciencedirect.com/science/article/pii/S0965997811001219}
+}
+
 %---------------------------------------------------------
 % E E E
 %---------------------------------------------------------
+
+@Book{elhawary1979,
+ title = {Optimal Economic Operation of Electric Power Systems},
+ publisher = {Academic Press},
+ year = {1979},
+ author = {E. M. El-Hawary and G. S. Christensen},
+ OPTaddress = {New York, NY, Estados Unidos},
+ OPTdoi = {10.1002/oca.4660010412},
+}
 
 %---------------------------------------------------------
 % F F F
@@ -234,6 +255,16 @@
  url = {https://hal.archives-ouvertes.fr/hal-01159961v2}
 }
 
+@Book{luke2013,
+ author = {Sean Luke},
+ title = {Essentials of Metaheuristics},
+ edition = {second},
+ year = {2013},
+ publisher = {Lulu},
+ note = {Disponível gratuitamente em http://cs.gmu.edu/$\sim$sean/book/metaheuristics/}
+}
+
+
 %---------------------------------------------------------
 % M M M
 %---------------------------------------------------------
@@ -329,9 +360,9 @@
 
 @MastersThesis{ramos2017,
  author = {Edson da Silva Ramos},
- title = {TODO},
+ title = {Modelos de Otimização e Simulação Dinâmicos para Sistemas Hidrotérmicos},
  school = {Escola de Engenharia Elétrica e de Computação, Universidade Federal de Goiás},
- year = {2017}
+ year = {2016}
 }
 
 @PhdThesis{rampazzo2012,
@@ -502,12 +533,20 @@
 %---------------------------------------------------------
 
 @TECHREPORT{zitzler2001,
-  author = {E. Zitzler and M. Laumanns and L. Thiele},
+  author = {Eckart Zitzler and Marco Laumanns and Lothar Thiele},
   title = {{SPEA2}: Improving the Strength Pareto Evolutionary Algorithm},
   institution = {Computer Engineering and Networks Laboratory (TIK), Swiss Federal
 	Institute of Technology (ETH), Zurich, Switzerland},
   year = {2001},
   number = {103}
+}
+
+@TECHREPORT{zitzler2002,
+  author = {Eckart Zitzler and Lothar Thiele and Marco Laumanns and Carlos M. Fonseca and Viviane Grunert da Fonseca},
+  title = {Performance Assessment of Multiobjective Optimizers: An Analysis and Review},
+  institution = {Institut für Technische Informatik und Kommunikationsnetze, ETH Zürich},
+  year = {2002},
+  number = {139}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

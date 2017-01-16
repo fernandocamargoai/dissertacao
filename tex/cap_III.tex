@@ -1,19 +1,132 @@
 \chapter{Otimização Multiobjetivo}
 \label{cap:otimizacaoMultiobjetivo}
 
-\section{Definição de um Problema de Otimização Multiobjetivo}
+Um dos problemas recorrentes da engenharia é a otimização de problemas. Tais problemas são usualmente definidos matematicamente através de variáveis numéricas, restrições que as relacionam e uma função objetivo. Um exemplo simples seria a otimização do lucro de um vendedor de sapatos. Supõe-se que ele tenha matéria prima limitada e deve decidir quantos sapatos de cada modelo deve produzir de forma a melhor utilizar sua matéria prima, garantindo o melhor retorno possível. Nesse caso, teríamos as variáveis que definem as quantidades de sapatos produzidos para cada modelo, as restrições que impôem os limites de utilização das matérias primas, as quais também descrevem a utilização delas para cada modelo de saparado, e por fim a função objetivo, que calcularia o retorno obtido com a produção de cada modelo de sapato. Para resolver problemas assim, existem diversas técnicas determinísticas e também metaheurísticas encontradas facilmente na literatura.
 
-\section{Solução de um Problema de Otimização Multiobjetivo}
+Porém, é frequente o caso em que não estamos interessados em otimizar apenas uma função objetivo, mas sim múltiplas. No contexto deste trabalho, por exemplo, desejamos otimizar a produção hidrelétrica ao mesmo tempo que otimizamos o nível do reservatório. Ainda existem casos em que desejamos otimizar muitas coisas ao mesmo tempo. Na construção de um prédio, por exemplo, seria excelente construir um prédio que fosse barato, alto, resistente e eficiente energeticamente.
 
-\section{Dominância de Pareto}
+Quando lidamos com problemas assim, algumas vezes será possível encontrar uma solução que otimize todos nossos objetivos. Entretanto, na maioria das vezes, esse não é o caso. Comumente, esses objetivos são conflitantes. Assim, as soluções desses problemas devem obter o melhor compromisso entre eles. Por fim, o resultado final de um problema desses não é uma única solução ótima, mas sim um conjunto com as melhores opções possíveis. Dessa forma, o operador do sistema poderá ponderar e decidir qual das opções será utilizada de acordo com sua priorização dos objetivos.
+
+Existem diversas maneiras de definir o grupo de melhores opções, mas há uma forma predominante: a Fronteira de Pareto do seu espaço de soluções candidatas \cite{luke2013}. Para tornar mais claro, digamos que temos duas soluções candidatas M e N. M domina N se M é pelo menos tão boa quanto N em todos os objetivos e superior a N em pelo menos um deles. Também podemos dizer que nem M domina N e nem vice-versa se elas são identicas em todos objetivos ou se N é melhor em alguns e M é melhor em outros. Nesse caso, ambas soluções são interessantes e devem ser apresentadas ao operador do sistema.
+
+Dessa forma, uma outra forma de definir ``melhor opções'' é o grupo de soluções candidatas que não são dominadas por nenhuma outra solução encontrada. Esse grupo de soluções é chamado de Fronteira de Pareto. Para deixar mais fácil a visualização, as Figuras \ref{fig:exemploFronteiraDePareto} e \ref{fig:exemploFronteiraDePareto2} mostram exemplos com objetivos a serem maximizados e minimizados, respectivamente. As soluçoes candidatas que formam a Fronteira de Pareto estão destacadas com uma linha que as liga. Abaixo ou acima dessa linha estão as soluções que foram dominadas por pelo menos uma das soluções da Fronteira de Pareto.
+
+\begin{figure}[h]
+  \centering
+  \caption{Exemplo de Fronteira de Pareto com soluções candidatas para dois objetivos a serem maximizados}
+  \includegraphics[width=2.5in]{./fig/Exemplo-Fronteira-de-Pareto.pdf}
+  \label{fig:exemploFronteiraDePareto}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \caption{Exemplo de Fronteira de Pareto com soluções candidatas para dois objetivos a serem minimizados}
+  \includegraphics[width=2.5in]{./fig/Exemplo-Fronteira-de-Pareto2.pdf}
+  \label{fig:exemploFronteiraDePareto2}
+\end{figure}
+
+Em um problema de otimização multiobjetivo, as soluções ótimas são aquelas que compôem a Fronteira Ótima de Pareto. Essas são soluções não dominadas no espaço de busca. Entretanto, dificilmente encontra-se tais soluções ótimas, pois encontrá-las necessitaria de excessivo esforço computacional e muitas vezes é até mesmo impossível. Ao invés disso, os algoritmos utilizados na soluções desses problemas, buscam soluções boas, formando aproximações da Fronteira Ótima de Pareto. Quanto mais próxima essas soluções se aproximam da Fronteira Ótima de Pareto melhores elas são. Mas como essa Fronteira Ótima de Pareto raramente é conhecida, utiliza-se de uma Fronteira de referência, normalmente obtida com as melhores soluções encontradas.
+
+Como existem múltiplos algoritmos na literatura para resolver problemas de otimização multiobjetiva e ainda mais formas de configurá-los, torna-se normal a busca pelos algoritmos que se adaptem melhor a problemas específicos. Para isso, são necessárias maneiras de se comparar os resultados obtidos por cada um deles. Antes de qualquer coisa, cada um desses algoritmos retornaram como resultado aproximações da Fronteira de Pareto. Então, são essas aproximações que devem ser comparadas afim de se encontrar o melhor par algoritmo-configuração para um determinado problema.
+
+Uma das maneiras de se comparar duas aproximações de Fronteira de Pareto, é avaliar o quanto uma domina a outra. A Tabela \ref{table:relacoesResultados}, obtida de \cite{zitzler2002}, mostra essas relações de dominância. Essa é o método mais simples de comparação para se verificar se um resultado é melhor que o outro com respeito às três relações de dominância $\triangleright$, $\succ$ e $\succ\succ$. Entretanto, precisamos de métricas de qualidade para comparar os resultados de maneira quantitativa. A razão pela qual utiliza-se métricas de qualidade é para que sejamos capazes de fazer afirmações mais precisas:
+
+\begin{itemize}
+ \item Se um algoritmo é melhor do que o outro, podemos expressar o quão melhor ele é?
+ \item Se nenhum dos algoritmos podem ser ditos melhor do que o outro, existem aspectos em que um deles seja melhor?
+\end{itemize}
+
+\begin{table}[h]
+\caption{Relações em vetores objetivos e aproximações de Fronteira de Pareto. \cite{zitzler2002}}
+\label{table:relacoesResultados}
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|p{4cm}|p{2cm}|p{5cm}|p{2cm}|p{5cm}|}
+    \hline
+    Relação             & \multicolumn{2}{p{7cm}|}{Vetores objetivos} & \multicolumn{2}{p{7cm}|}{Aproximação da Fronteira de Pareto} \\ \hline
+    Estritamente domina & $z^{1} \succ\succ z^{2}$          & $z^{1}$ é melhor que $z^{2}$ em todos objetivos                                        & $A \succ\succ B$                             & Todo $z^{2} \in B$ é estritamente dominado por pelo menos um $z^{1} \in A$        \\ \hline
+    Domina              & $z^{1} \succ z^{2}$           & $z^{1}$ não é pior que $z^{2}$ em todos objetivos e é melhor em pelo menos um objetivo & $A \succ B$                              & Todo $z^{2} \in B$ é dominado por pelo menos um $z^{1} \in A$                     \\ \hline
+    Melhor              & ~                 & ~                                                                            & $A \triangleright B$                              & Todo $z^{2} \in B$ é fracamente dominado por pelo menos um $z^{1} \in A$ e $A \neq B$ \\ \hline
+    Fracamente domina   & $z^{1} \succeq z^{2}$          & $z^{1}$ não é pior que $z^{2}$ em todos objetivos                                      & $A \succeq B$                             & Todo $z^{2} \in B$ é fracamente dominado por pelo menos um $z^{1} \in A$          \\ \hline
+    Incomparável        & $z^{1} \parallel z^{2}$          & Nem $z^{1}$ fracamente domina $z^{2}$ e nem $z^{2}$ fracamente domina $z^{1}$                    & $A \parallel B$                             & Nem $A$ fracamente domina $B$ e nem $B$ fracamente domina $A$               \\ \hline
+\end{tabular}
+}
+\end{table}
 
 \section{Métricas de Qualidade}
 \label{sec:metricas}
 
-\subsection{Epsilon \texorpdfstring{($\epsilon$)}{}}
+Existem muitos exemplos de métricas de qualidade na literatura. Algumas têm o fim de medir a distância entre a aproximação para a Fronteira Ótima de Pareto. Outras tentam capturas a diversidade de uma aproximação. Enfim, pode-se dizer que as métricas de qualidade mapeiam as aproximações de Fronteira de Pareto com números reais afim de quantificar a qualidade dessas aproximações com métricas comuns. Assim, outro termo que pode ser utilizado é o de indicador de qualidade.
+
+De acordo com \cite{zitzler2002}, pode-se definir um Indicador de Qualidade I como uma função $I : \Omega^{m} \rightarrow \mathbb{R}$, a qual atribui a cada vetor $(A_{1}, A_{2}, ..., A_{m})$ de $m$ aproximações um valor real $I(A_{1}, ..., A_{m})$.
+
+Vale destacar que existem dois tipos de indicador de qualidade: unário e binário. Sendo que o unário visa quantificar a qualidade de uma aproximação em relação a uma Fronteira de Pareto de referência, enquanto o binário visa comparar duas aproximações diferentes.
+
+A seguir, são discutidos os indicadores de qualidade utilizados neste trabalho, os mesmos utilizados em \cite{durillo2009}.
+
+\subsection{Epsilon Aditivo Unário \texorpdfstring{($\epsilon+$)}{}}
 \label{sec:epsilon}
+
+A família de indicadores epsilon foi introduzida por \cite{zitzler2002} e inclui a versão multiplicativa e aditiva, ambas possuindo a forma unária e binária. Como dito anteriormente, a forma binária visa comparar duas aproximiações, enquanto a unária compara uma aproximação com uma referência. Nesse caso, temos a definição de que o Indicador Epsilon Aditivo Binário $I^{1}_{\epsilon+}(A, B)$ dá a parcela mínima $\epsilon$ a qual pode ser somada a qualquer ponto em $B$ de forma que a aproximação resultante transformada é fracamente dominada por $A$, como definido pela Equação \ref{eq:epsilonAditivoBinario}. O indicador unário é calculado da mesma forma, mas substituindo $B$ pela Fronteira de Pareto de referência.
+
+\begin{equation}\label{eq:epsilonAditivoBinario}
+ I^{1}_{\epsilon+}(A, B) = \inf_{\epsilon \in \mathbb{R}} \{ \forall z^{2} \in B \exists z^{1} \in A : z^{1} \preceq_{\epsilon+} z^{2} \}
+\end{equation}
+
+O Indicador Epsilon Aditivo, o qual estamos interessados, depende da relação de $\epsilon$-dominância aditiva, $\preceq_{\epsilon+}$, definida pela Equação \ref{eq:epsilonDominanciaAditiva} \cite{knowles2006}. Além disso, sua forma unária pode ser definida pela Equação \ref{eq:epsilonAditivoUnario}, onde $R$ é uma Fronteira de Pareto de referência. É importante observar que o valor obtido por esse indicador deve ser minimizado. Além disso, um valor igual a $0$ indica que $A$ estritamente domina $R$.
+
+\begin{equation}\label{eq:epsilonDominanciaAditiva}
+ z^{1} \preceq_{\epsilon+} z^{2} \Longleftrightarrow \forall i \in 1..n : z^{1}_{i} \leq \epsilon + z^{2}_{i}
+\end{equation}
+
+\begin{equation}\label{eq:epsilonAditivoUnario}
+ I^{1}_{\epsilon+}(A) = I^{1}_{\epsilon+}(A, R)
+\end{equation}
+
+Vale frisar que esse indicador é calculado levando em consideração cada ponto da aproximação e da referência. Assim, quanto menor o seu valor, mais próximo essa aproximação estará da Fronteira de Pareto tomada como referência. Conclui-se, então, que esse indicador tem por objetivo medir a convergência de uma aproximação.
 
 \subsection{SPREAD \texorpdfstring{($\Delta$)}{(Delta)}}
 
+Esse indicador tem por objetivo quantificar o outro aspecto importante de resultados de uma otimização multiobjetivo: a diversidade das soluções encontradas. O Indicador $\Delta$ mede a extensão do espalhamento obtido pelas soluções encontradas. Nesse caso, o interesse é encontrar soluções que alcancem toda a região da Fronteira Ótima de Pareto \cite{deb2002}.
+
+Primeiramente, calculamos a distancia Euclidiana $d_{i}$ entre soluções consecutivas do grupo de soluções não dominadas. Então, calculamos a média $\bar{d}$ dessas distâncias. Depois disso, do grupo de soluções não dominadas, calculamos as soluções extremas, que não fazem parte das soluções encontradas, ajustando uma curva paralela à da Fronteira Ótima de Pareto. Por fim, usamos a Equação \ref{eq:delta} para calcular a não uniformidade na distribuição \cite{deb2002}.
+
+\begin{equation}\label{eq:delta}
+ \Delta = \frac{d_{f} + d_{l} + \sum_{i=1}^{N-1} |d_{i} - \bar{d}|}{d_{f} + d_{l} + (N-1)\bar{d}}
+\end{equation}
+
+Nessa equação, os parâmetros $d_{f}$ e $d_{l}$ são as distâncias Euclidianas entre as soluções extremas e as soluções mais distantes encontradas, como ilustra a Figura \ref{fig:indicadorDelta}. O parâmetro $\bar{d}$ é a média de todas distâncias $d_{i}$, $i=1,2,...,(N-1)$, assumindo que existem $N$ soluções no grupo de soluções não dominadas. O denominador é o valor do numerador para o caso em que todas $N$ soluções situem-se em uma única solução. Porém, esse não seria o pior caso possível. Pode haver o cenário em que exista uma grande variância em $d_{i}$, o que faria com que o valor da métrica seja maior do que um. Uma boa distribuição faria com que todas distâncias $d_{i}$ sejam iguais a $\bar{d}$ e $d_{f} = d{l} = 0$ (com a existência das soluções extremas no grupo de soluções não dominadas). Assim, para o grupo mais abrangente e uniformemente espalhado grupo de soluções, o numerador de $\Delta$ seria zero, fazendo com que seu valor fosse zero. Para qualquer outra distribuição, seu valor seria maior do que zero. Para duas distribuições com valores identicos para $d_{f}$ e $d_{l}$ (ou seja, que possuem a mesma Fronteira de Pareto como referência), o indicador $\Delta$ obtém maior valor para a pior distribuição \cite{deb2002}.
+
+\begin{figure}[h]
+  \centering
+  \caption{Indicador $\Delta$}
+  \includegraphics[width=5in]{./fig/Indicador-Delta.png}
+  \label{fig:indicadorDelta}
+\end{figure}
+
 \subsection{Hipervolume (HV)}
 \label{sec:hv}
+
+O Indicador Hipervolume, proposto por \cite{zitzler1999}, mede o tamanho do espaço objetivo coberto por uma aproximação A. Ou melhor, calcula-se o hipervolume (volume multidimensional) da porção do espaço objetivo que é fracamente dominada por essa aproximação, como mostrado pelas Equações \ref{eq:hipervolume} e \ref{eq:hipervolumeAlpha}.
+
+\begin{equation}\label{eq:hipervolume}
+ HV(A) := \int_{z^{min}}^{z^{max}} \alpha_{A}(z)dz
+\end{equation}
+
+\begin{equation}\label{eq:hipervolumeAlpha}
+ \alpha_{A}(z) := \begin{cases} 
+  1 &\text{se $\exists a \in A$ de forma que $z \prec a$} \\
+  0 &\text{caso contrário}
+ \end{cases}                                
+\end{equation}
+
+Porém, na prática, apenas o vetor $z^{max} \in \mathbb{R}^{d}$ é necessário para computar o hipervolume. Sendo esse parâmetro chamado de ponto de referência.
+
+Diferente dos indicadores apresentados anteriormente, seu valor deve ser maximizado. Além disso, enquando o Indicador $\epsilon+$ e o Indicador $\Delta$ medem a convergência e a diversidade das Fronteiras de Pareto, respectivamente, o Indicador HV mede ambos aspectos \cite{durillo2009}. Por esse e outros motivos, esse foi o Indicador mais utilizado no EMO entre 2005 e 2013 de acordo com \cite{riquelme2015}. Vale notar também que ele tem sido amplamente aceito por apresentar as seguintes propriedades únicas e desejáveis:
+
+\begin{enumerate}
+ \item Sempre que uma aproximação completamente domina outra, o hipervolume da primeira será maior do que o hipervolume da última. Como consequência, HV é dita como Pareto compatível.
+ \item Como resultado da propriedade anterior, o HV garante que qualquer aproximação A que consiga o maior valor de qualidade possível para um problema de otimização multi particular, contém todas as soluções ótimas da Fronteira de Pareto.
+\end{enumerate}
+
+

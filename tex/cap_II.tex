@@ -59,9 +59,93 @@ Em um mesmo rio, é comum a construção de uma cascata de usinas hidrelétricas. De
   \label{fig:cascataUsinas}
 \end{figure}
 
+O volume do reservatório de uma usina hidrelétrica é dividido em três faixas: volume morto, volume útil e volume de segurança. O volume morto de uma usina é aquele que não pode ser aproveitado para a geração de energia elétrica, devido às restrições da usina em questão. Ele serve de referência como volume mínimo ($v_{min}$) necessário para a entrada de água no sistema de adução e, assim, gerar energia. A próxima faixa é o volume útil, que é aquele armazenado entre o volume mínimo ($v_{min}$) e o máximo ($v_{max}$) operativos. Esse é o volume que pode ser aproveitado na geração de energia. Por último, o volume de segurança é aquele acima do volume máximo operativo ($v_{max}$) e abaixo do volume máximo de projeto do reservatório. Normalmente, esse se encontrará vazio.
+
+Além de armazenar a água para uma posterior conversão em energia, o represamento de água pelas barragens também tem por objetivo criar uma diferença de nível entre o reservatório e o canal de fuga. Essa diferença é chamada altura de queda bruta, conforme a Equação \ref{eq:alturaQuedaBruta}, onde $h_{mon}(v)$, chamado de cota de montante, é o nível do reservatório e $h_{jus}(u)$, chamado de cota de jusante, é o nível do canal de fuga. Esses níveis são funções do volume e da defluência, respectivamente.
+
+\begin{equation}\label{eq:alturaQuedaBruta}
+ h(v,u) = h_{mon}(v) - h_{jus}(u)
+\end{equation}
+
+Porém, a Equação \ref{eq:alturaQuedaBruta} não está completa, pois há ainda a perda de carga hidráulica causada pelo atrito entre a água e o canal de adução ao longo do percurso do reservatório até as turbinas, como descrito por \cite{fortunato1990}. Essa perda é representada por $pc$, sendo usualmente adotada como um valor constante médio. Assim, a altura de queda líquida é dada pela Equação \ref{eq:alturaQuedaBruta2}.
+
+\begin{equation}\label{eq:alturaQuedaBruta2}
+ h(v,u) = h_{mon}(v) - h_{jus}(u) - pc
+\end{equation}
+
 \subsection{Conjuntos Turbina/Gerador}
 
+Como visto na Figura \ref{fig:modeloHidreletrica}, a água armazenada no reservatório é transferida para a casa de máquinas através de condutos forçados, onde se encontram as unidades geradoras. Tais unidades são divididas em diferentes conjuntos, de acordo com suas características, sendo cada uma é composta por um conjunto turbina/gerador.
+
+As unidades geradoras são responsáveis por transformar energia potencial em energia elétrica. Para entender seu funcionamento, deve-se entender esse processo de transformação e como ela afeta a produtividade de um conjunto turbina/gerador. Para começar, a variação de energia potencial pode ser expressa como na Equação \ref{eq:variacaoDeEnergiaPotencial}, onde $dm$ é uma variação incremental de massa de água armazenada no reservatório, $g$ é a aceleração da gravidade e $h$ é a altura de queda desse reservatório (diferença entre os níveis de montante e de jusante).
+
+\begin{equation}\label{eq:variacaoDeEnergiaPotencial}
+ de_{p} = dm.g.h
+\end{equation}
+
+Considerando o peso específico da água $p$ ($1000 kg/m^{3}$) e tansformando o volume de água em vazão no tempo, podemos reescrever a Equação \ref{eq:variacaoDeEnergiaPotencial} conforme a Equação \ref{eq:variacaoDeEnergiaPotencial2}.
+
+\begin{equation}\label{eq:variacaoDeEnergiaPotencial2}
+ de_{p} = p.q.dt.g.h
+\end{equation}
+
+A transformação de energia potencial em energia elétrica depende do rendimento $\eta$ do processo de conversão de energia pelo conjunto turbina/gerador. Essa transformação pode ser expressa pela Equação \ref{eq:transformacaoEnergiaPotencialEletrica}, em que $\eta$ varia em função da vazão turbinada e a altura de queda líquida.
+
+\begin{equation}\label{eq:transformacaoEnergiaPotencialEletrica}
+ e_{e} = \eta.e_{p}
+\end{equation}
+
+Porém, o planejamento da operação energética no sistema brasileiro considera um rendimento médio $\bar{\eta}$ \cite{fortunato1990}. Logo, a equação da geração de energia elétrica pode ser escrita como na Equação \ref{eq:geracaoEnergiaEletrica}.
+
+\begin{equation}\label{eq:geracaoEnergiaEletrica}
+ de_{e} = \bar{\eta}.p.q.dt.g.h
+\end{equation}
+
+Transformando essa energia em potência ($p = \tfrac{de}{dt}$), temos a Equação \ref{eq:geracaoPotencia}.
+
+\begin{equation}\label{eq:geracaoPotencia}
+ p = \bar{\eta}.p.q.g.h
+\end{equation}
+
+A altura de queda considerada é a altura de queda líquida do reservatório, ou seja, a altura de queda bruta menos as perdas de carga $pc$, como mostrado na Equação \ref{eq:alturaQuedaBruta2}. Assim, chegamos na Equação \ref{eq:geracaoPotencia2}.
+
+\begin{equation}\label{eq:geracaoPotencia2}
+ p = \bar{\eta}.p.q.g.(h_{mon}(v) - h_{jus}(u) - pc)
+\end{equation}
+
+Englobando em uma constante $k$ o rendimento do conjunto turbina/gerador ($\bar{\eta}$), a aceleração da gravidade ($g$) e o peso específico da água ($p$), pode-se escrever a função de geração hidráulica ($gh$) conforme a Equação \ref{eq:geracaoHidraulica}.
+
+\begin{equation}\label{eq:geracaoHidraulica}
+ gh = k.(h_{mon}(v) - h_{jus}(u) - pc).q
+\end{equation}
+
+Assim, pode-se observar que a geração hidrelétrica é uma função do volume armazenado e das vazões turbinada e vertida. A constante $k=\bar{\eta}.p.g$ é comumente denominada produtibilidade específica.
+
+Segundo \cite{fortunato1990}, o rendimento médio calculado para grandes unidades geradoras situa-se no intervalo:
+
+\begin{displaymath}
+ 0,88 < \bar{\eta} \leq 0,94
+\end{displaymath}
+
+Assim, a produtibilidade específica assume valores entre:
+
+\begin{displaymath}
+ 0,00863 < k \leq 0,0092
+\end{displaymath}
+
+O engolimento máximo da usina normalmente é calculado considerando-se que a usina possa possuir vários conjuntos de máquinas. Cada conjunto é formado por máquinas com a mesma potência e engolimento máximo. Para a usina como um todo, o engolimento máximo total será a soma dos engolimentos de cada conjunto, como mostra a Equação \ref{eq:engolimentoMaximoTotal}, onde $NCM$ é o número de conjuntos de máquinas da usina, $NMC$ é o número de máquinas do conjunto $n$ e $\bar{q}_{nm}$ é o engolimento máximo da máquina $m$ do conjunto $n$.
+
+\begin{equation}\label{eq:engolimentoMaximoTotal}
+ q_{max} = \sum_{n=1}^{NCM} \sum_{m=1}^{NMC} \bar{q}_{nm}
+\end{equation}
+
 \section{Usinas Termelétricas}
+
+Em usinas termelétricas, a geração de energia elétrica é realizada através de transformação de energia térmica em energia mecânica, a qual movimenta uma turbina acoplada a um gerador para transformá-la em energia elétrica. Elas são dividias em duas categorias quanto ao combustível utilizado: convencionais, cujos combustíveis são fósseis, como carvão, óleo, gás natural e biomassa; e usinas nucleares, que utilizam combustíveis físseis, como urânio natural e enriquecido. E também são divididas em três categorias quanto a forma com que o combustível é queimado: usinas a vapor, a gás ou a combustão direta.
+
+Nas usinas a vapor, o combustível é queimado para fornecer calor a uma caldeira com água armazenada. Ao ser aquecida, a água é transformada em vapor que, sob pressão, faz girar as pás da turbina. Assim, a energia cinética do vapor é transformado em energia elétrica. Em usinas com turbinas a gás, as pás das turbinas são movimentadas mediante a mistura gasosa de ar comprimido com o gás resultante da queima do combustível. Já em usinas de combustão direta, utiliza-se motores a pistão alimentados por um combustível fóssil, sendo geralmente utilizado o óleo diesel. Esses motores são acoplados a geradores elétricos, que transformam a energia mecâmica em elétrica.
+
+A geração de energia em uma usina termelétrica está associada à aquisição do combustível primário, existindo uma relação produção por custo para cada unidade geradora. Somado aos custos dos combustíveis, estão os custos operacionais, como mão-de-obra e manutenção de equipamentos. Contudo, como não há métodos diretos para expressar tais custos em função da saída, geralmente esses custos operacionais são considerados como custos fixos. O custo total costuma ser modelado como uma função convexa e crescente, aproximada por polinômios de segundo ou terceiro graus \cite{elhawary1979}, com limites de geração mínima e máxima.
 
 \section{Formulação do Problema de Planejamento da Operação Energética}
 

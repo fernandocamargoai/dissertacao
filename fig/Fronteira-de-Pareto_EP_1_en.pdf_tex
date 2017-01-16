@@ -1,6 +1,6 @@
 %% Creator: Inkscape inkscape 0.91, www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
-%% Accompanies image file 'Frente-de-Pareto_HV_1.pdf' (pdf, eps, ps)
+%% Accompanies image file 'Fronteira-de-Pareto_EP_1.pdf' (pdf, eps, ps)
 %%
 %% To include the image in your LaTeX document, write
 %%   \input{<filename>.pdf_tex}
@@ -49,7 +49,7 @@
   \global\let\svgscale\undefined%
   \makeatother%
   \begin{picture}(1,0.48316252)%
-    \put(0,0){\includegraphics[width=\unitlength,page=1]{Frente-de-Pareto_HV_1.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{Fronteira-de-Pareto_EP_1.pdf}}%
     \put(0.03660322,0.01781354){\makebox(0,0)[lb]{\smash{-100}}}%
     \put(0.19533917,0.01781354){\makebox(0,0)[lb]{\smash{-90}}}%
     \put(0.35078089,0.01781354){\makebox(0,0)[lb]{\smash{-80}}}%
@@ -57,31 +57,32 @@
     \put(0.66166428,0.01781354){\makebox(0,0)[lb]{\smash{-60}}}%
     \put(0.81710586,0.01781354){\makebox(0,0)[lb]{\smash{-50}}}%
     \put(0.97254758,0.01781354){\makebox(0,0)[lb]{\smash{-40}}}%
-    \put(0.46449531,0.00286728){\makebox(0,0)[lb]{\smash{Volume Final (\%)}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=2]{Frente-de-Pareto_HV_1.pdf}}%
+    \put(0.46449531,0.00286728){\makebox(0,0)[lb]{\smash{Final Storage (\%)}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{Fronteira-de-Pareto_EP_1.pdf}}%
     \put(0.02733038,0.02818448){\makebox(0,0)[lb]{\smash{0.8}}}%
-    \put(0.02733038,0.09943873){\makebox(0,0)[lb]{\smash{0.9}}}%
-    \put(0.03757928,0.17069305){\makebox(0,0)[lb]{\smash{1}}}%
-    \put(0.02733038,0.24194729){\makebox(0,0)[lb]{\smash{1.1}}}%
-    \put(0.02733038,0.31320154){\makebox(0,0)[lb]{\smash{1.2}}}%
-    \put(0.02733038,0.38445586){\makebox(0,0)[lb]{\smash{1.3}}}%
-    \put(0.02733038,0.4557101){\makebox(0,0)[lb]{\smash{1.4}}}%
-    \put(0.02129085,0.19399729){\rotatebox{90}{\makebox(0,0)[lb]{\smash{Custo térmico (\$)}}}}%
+    \put(0.02733038,0.08925959){\makebox(0,0)[lb]{\smash{0.9}}}%
+    \put(0.03757928,0.15033463){\makebox(0,0)[lb]{\smash{1}}}%
+    \put(0.02733038,0.21140974){\makebox(0,0)[lb]{\smash{1.1}}}%
+    \put(0.02733038,0.27248485){\makebox(0,0)[lb]{\smash{1.2}}}%
+    \put(0.02733038,0.33355996){\makebox(0,0)[lb]{\smash{1.3}}}%
+    \put(0.02733038,0.39463499){\makebox(0,0)[lb]{\smash{1.4}}}%
+    \put(0.02733038,0.4557101){\makebox(0,0)[lb]{\smash{1.5}}}%
+    \put(0.02129085,0.19399729){\rotatebox{90}{\makebox(0,0)[lb]{\smash{Thermal Cost (\$)}}}}%
     \put(0.04831625,0.46193265){\makebox(0,0)[lb]{\smash{x}}}%
     \put(0.05636896,0.46193265){\makebox(0,0)[lb]{\smash{10}}}%
     \put(0.06954612,0.4670571){\makebox(0,0)[lb]{\smash{11}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=3]{Frente-de-Pareto_HV_1.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{Fronteira-de-Pareto_EP_1.pdf}}%
     \put(0.88756508,0.43718001){\makebox(0,0)[lb]{\smash{OMOPSO}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=4]{Frente-de-Pareto_HV_1.pdf}}%
-    \put(0.88756508,0.42424063){\makebox(0,0)[lb]{\smash{SMPSO (10.0)}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=5]{Frente-de-Pareto_HV_1.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{Fronteira-de-Pareto_EP_1.pdf}}%
+    \put(0.88756508,0.42424063){\makebox(0,0)[lb]{\smash{SMPSO (1.0)}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{Fronteira-de-Pareto_EP_1.pdf}}%
     \put(0.88756508,0.41130132){\makebox(0,0)[lb]{\smash{NSGA-II (1.0)}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=6]{Frente-de-Pareto_HV_1.pdf}}%
-    \put(0.88756508,0.39836193){\makebox(0,0)[lb]{\smash{SPEA2 (20.0)}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=7]{Frente-de-Pareto_HV_1.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{Fronteira-de-Pareto_EP_1.pdf}}%
+    \put(0.88756508,0.39836193){\makebox(0,0)[lb]{\smash{SPEA2 (1.0)}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{Fronteira-de-Pareto_EP_1.pdf}}%
     \put(0.88756508,0.38542262){\makebox(0,0)[lb]{\smash{MOCell (1.0)}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=8]{Frente-de-Pareto_HV_1.pdf}}%
-    \put(0.88756508,0.37248324){\makebox(0,0)[lb]{\smash{Frente de Pareto}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=9]{Frente-de-Pareto_HV_1.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{Fronteira-de-Pareto_EP_1.pdf}}%
+    \put(0.88756508,0.37248324){\makebox(0,0)[lb]{\smash{Pareto Front}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{Fronteira-de-Pareto_EP_1.pdf}}%
   \end{picture}%
 \endgroup%
