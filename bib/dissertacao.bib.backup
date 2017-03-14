@@ -58,6 +58,15 @@
  issn = {0018-9510}
 }
 
+@Book{brownlee2011,
+ author = {Brownlee, Jason},
+ title = {Clever Algorithms: Nature-Inspired Programming Recipes},
+ year = {2011},
+ isbn = {1446785068, 9781446785065},
+ edition = {1st},
+ publisher = {Lulu.com},
+} 
+
 %---------------------------------------------------------
 % C C C
 %---------------------------------------------------------
@@ -96,6 +105,18 @@
  number = {2}
 }
 
+@InProceedings{durillo2009,
+ author = {Juan J. Durillo and José García-Nieto and Antonio J. Nebro and Carlos A. Coello and Francisco Luna and Enrique Alba},
+ title = {Multi-Objective Particle Swarm Optimizers: An Experimental Comparison},
+ booktitle = {EMO '09 Proceedings of the 5th International Conference on Evolutionary Multi-Criterion Optimization},
+ pages = {495-509 },
+ year = {2009},
+ editor = {Springer-Verlag Berlin},
+ address = {Heidelberg},
+ isbn = {978-3-642-01019-4}
+}
+
+
 @Article{durillo2011,
  author = {Juan J. Durillo and Antônio J. Nebro},
  title = {jMetal: A Java framework for multi-objective optimization},
@@ -112,13 +133,20 @@
 % E E E
 %---------------------------------------------------------
 
+@Book{eiben2003,
+ title = {Introduction to Evolutionary Computing},
+ publisher = {Springer},
+ year = {2003},
+ author = {Gusz Eiben and Jim Smith}
+}
+
 @Book{elhawary1979,
  title = {Optimal Economic Operation of Electric Power Systems},
  publisher = {Academic Press},
  year = {1979},
  author = {E. M. El-Hawary and G. S. Christensen},
- OPTaddress = {New York, NY, Estados Unidos},
- OPTdoi = {10.1002/oca.4660010412},
+ address = {New York, NY, Estados Unidos},
+ doi = {10.1002/oca.4660010412},
 }
 
 %---------------------------------------------------------
@@ -230,6 +258,25 @@
 %---------------------------------------------------------
 % K K K
 %---------------------------------------------------------
+
+@Article{knowles1999,
+ author = {Joshua D. Knowles and D. Corne},
+ title = {The Pareto archived evolution strategy: A new baseline algorithm for multiobjective optimization},
+ journal = {Sba Controle \& Automação},
+ year = {2006},
+ volume = {17},
+ number = {1},
+ pages = {81-88},
+ issn = {0103-1759}
+}
+
+@TechReport{knowles2006,
+ author = {Joshua D. Knowles and Lothar Thiele and Eckart Zitzler},
+ title = {A Tutorial on the Performance Assessment of Stochastic Multiobjective Optimizers},
+ institution = {Computer Engineering and Networks Laboratory, ETH Zurich},
+ year = {2006},
+ number = {214}
+}
 
 %---------------------------------------------------------
 % L L L
@@ -384,9 +431,15 @@
   series = {LNCS},
   pages = {509-519},
   publisher = {Springer},
-  optaddress = {Berlin, Germany},
+  address = {Berlin, Germany},
 }
 
+@Article{riquelme2015,
+ author = {Nery Riquelme and Christian Von Lücken and Benjamin Baran},
+ title = {Performance metrics in multi-objective optimization},
+ journal = {Computing Conference (CLEI), 2015 Latin American},
+ year = {2015}
+}
 
 %---------------------------------------------------------
 % S S S
@@ -420,6 +473,15 @@
  pages = {1101-1107}
 }
 
+@Article{srinivas1995,
+ author = {N. Srinivas and K. Deb},
+ title = {Multiobjective function optimization using nondominated sorting genetic algorithms},
+ journal = {Evol. Comput.},
+ year = {1995},
+ volume = {2},
+ number = {3},
+ pages = {221-248}
+}
 
 %---------------------------------------------------------
 % T T T
@@ -531,6 +593,16 @@
 %---------------------------------------------------------
 % Z Z Z
 %---------------------------------------------------------
+
+@Article{zitzler1999,
+ author = {Eckart Zitzler and Lothar Thiele},
+ title = {Multiobjective evolutionary algorithms: a comparative case study and the strength Pareto approach},
+ journal = {IEEE Transactions on Evolutionary Computation},
+ year = {1999},
+ volume = {3},
+ number = {4},
+ pages = {257-271}
+}
 
 @TECHREPORT{zitzler2001,
   author = {Eckart Zitzler and Marco Laumanns and Lothar Thiele},

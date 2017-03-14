@@ -1,0 +1,128 @@
+\documentclass{beamer}
+
+\usepackage[latin1]{inputenc}
+\usepackage[brazil]{babel}
+
+\usetheme{Berlin}
+\usecolortheme{default}
+
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{colortbl}
+%\usepackage[figuresleft]{rotating}
+\usepackage{rotating}
+%\usepackage[table*]{xcolor}
+\xdefinecolor{gray95}{gray}{0.65}
+\xdefinecolor{gray25}{gray}{0.8}
+
+\graphicspath{{./fig/}}
+
+% Colocando numero de paginas no slide
+\setbeamertemplate{footline}[frame number]
+% Desativando os botoes de navegacao
+\beamertemplatenavigationsymbolsempty
+% Layout da pagina
+\hypersetup{pdfpagelayout=SinglePage}
+
+
+%Information to be included in the title page:
+\title{Aplicação de Meta Heurísticas na Otimização Multiobjetivo de Sistemas Hidrotérmicos}
+\author[Camargo, F. H. F.]{Fernando Henrique Fernandes de Camargo}
+\institute[EMC - UFG]{Escola de Engenharia Elétrica, Mecânica e de Computação\\Universidade Federal de Goiás}
+\date{\today}
+
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Tabela de conteúdo}
+    \begin{multicols}{2}
+      \tableofcontents[currentsection]
+    \end{multicols}
+  \end{frame}
+}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Tabela de conteúdo}
+\begin{multicols}{2}
+  \tableofcontents
+\end{multicols}
+\end{frame}
+
+\section[O Problema]{Planejamento Energético de Sistemas Hidrotérmicos}
+
+\begin{frame}
+  \frametitle{Teste 1}
+  Testando o teste 1
+  
+  \begin{itemize}
+    \item<1-> Um
+    \item<2-> Dois
+    \item<3-> Três
+    \item<4-> Quatro
+  \end{itemize}
+\end{frame}
+
+\subsection{Sistemas Hidrotérmicos de Geração}
+
+\subsection{Técnicas Utilizadas}
+
+\subsection{Formulação}
+
+\section[Otimização Multiobjetivo]{Otimização Multiobjetivo}
+
+\subsection{Fronteira de Pareto}
+
+\subsection{Métricas de Qualidade}
+
+\section[Algoritmos Aplicados]{Algoritmos Aplicados}
+
+\subsection{NSGA-II}
+
+\subsection{SPEA2}
+
+\subsection{MOCell}
+
+\subsection{OMOPSO}
+
+\subsection{SMPSO}
+
+\section[Estudos de Caso]{Estudos de Caso}
+
+\subsection{Cenário de Teste}
+
+\subsection{Arquitetura do Sistema}
+
+\subsection{Parâmetros Utilizados nos Algoritmos}
+
+\section[Resultados]{Resultados}
+
+\subsection{Período 1951-1956}
+
+\subsection{Período 1961-1966}
+
+\subsection{Período 1980-1985}
+
+\subsection{Resultados Finais}
+
+\section[Conclusões]{Conclusões e Trabalhos Futuros}
+
+
+
+
+\begin{frame}
+  \frametitle{Teste 1}
+  Testando o teste 1
+  
+  \begin{itemize}
+    \item<1-> Um
+    \item<2-> Dois
+    \item<3-> Três
+    \item<4-> Quatro
+  \end{itemize}
+\end{frame}
+
+\end{document}

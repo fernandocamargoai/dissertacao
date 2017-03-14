@@ -1,3 +1,21 @@
 \chapter{Conclusões}
 \label{cap:conclusoes}
 
+O problema do planejamento energético de sistemas hidrotérmicos de geração é complexo, de grande porte, dinâmico, estocástico, interconectado e não linear. Além disso, ele é de extrema importância para o pleno funcionamento importante de um país, em especial o Brasil que possui a grande maioria de sua energia gerada através de usinas hidrelétricas e uma minoria de usinas térmicas, que são usadas apenas como backup.
+
+Muitos forma de se solucionar esse problema já foram propostas na literatura. Mas uma boa parte deles (o NLP, por exemplo) não utiliza de técnicas de otimização multiobjetivo. Como foi observado neste trabalho, essa otimização claramente possui dois objetivos conflitantes: reduzir o custo, o que leva à maior geração de energia hidrelétrica, e maximizar o volume final do reservatório. Naturalmente, para se produzir mais energia hidrelétrica, gasta-se mais água, o que reduz o nível de armazenamento. Portanto, deve-se encontrar boas soluções com um compromisso entre esses dois objetivos. E a melhor maneira de tratar esse tipo de problema, é com técnicas apropriadas de otimização multiobjetivo, utilizando-se de Fronteira de Pareto. Isso não só consegue resolver o problema de maneira mais adequada, como também oferece várias opções de solução a serem escolhidas pelo operador do sistema, que pode escolher de acordo com sua prioridade atual.
+
+Outros trabalhos, como \cite{silva2014}, também propuseram técnicas de otimização multiobjetivo para resolver esse problema. Porém, aqui foram propostas as melhores técnicas conhecidas até o momento, muitas delas estando em estado da arte. Além das duas melhores técnicas de PSO (OMOPSO e SMPSO), também foram estudadas as melhores técnicas de Algoritmos Evolucionários (NSGA-II e SPEA2), além de uma outra promissora (MOCell). O objetivo aqui foi tentar identificar quais dessas técnicas se adaptam melhor ao problema em questão, ajustando seus parâmetros de forma que essas possam competir sem vantagem uma sobre a outra.
+
+Nessa busca, conclui-se que os Algoritmos Evolucionários se adaptam melhor a esse problema. Em especial NSGA-II, que obteve melhores soluções, e MOCell que obteve melhor diversidade de soluções.
+
+\section{Trabalhos Futuros}
+
+Entre os possíveis trabalhos futuros a serem realizados, pordem ser enumeradas as seguintes ações:
+
+\begin{itemize}
+ \item Fazer uma otimização dos parâmetros utilizados pelos melhores algoritmos selecionados, levando-os às melhores soluções possíveis para o problema.
+ \item Testar esses algoritmos em sistemas com um número maior de usinas hidrelétricas.
+ \item Comparar os resultados reais da operação de um sistema de usinas com os resultados obtidos por esses algoritmos.
+ \item Implementar o sistema completo, utilizando técnicas de previsão das afluências.
+\end{itemize}

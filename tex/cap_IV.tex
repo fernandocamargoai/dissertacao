@@ -1,16 +1,352 @@
 \chapter{Algoritmos Aplicados}
 \label{cap:algoritmosAplicados}
 
+Neste trabalho, foram implementados alguns dos mais eficientes algoritmos de otimização multiobjetivo encontrados na literatura atual. Três deles são baseados em algoritmos evolucionários: NSGA-II \cite{deb2002}, SPEA2 \cite{zitzler2001} e MOCell \cite{nebro2006} \cite{nebro2007}; e dois são baseados em enxame de partículas: OMOPSO \cite{reyes2005} e SMPSO \cite{nebro2009}. A seguir, será apresentada a teoria por trás desses algoritmos.
+
 \section{Algoritmos Evolucionários}
+
+Há muito tempo, começaram a ser desenvolvidos algoritmos com o filme de solucionar problemas através do computador. Os primeiros algoritmos possuiam base matemática e comportamento determinístico. O objetivo desses sempre foi encontrar a solução ótima para determinado problema. Entretanto, à medida que problemas cada vez mais complexos foram surgindo, foi ficando cada vez mais difícil e algumas vezes inviável modelá-los matematicamente para que sejam resolvidos por tais algoritmos. Assim, deu-se inicio à criação de algoritmos que imitem comportamentos apresentados pela natureza. E em busca dos mais poderosos resolvedores naturais de problemas, encontram-se dois grandes candidatos: o cérebro humano e o processo evolucionário (que criou o cérebro humano). Esse segundo virou inspiração para uma grande família de algoritmos conhecidos como Algoritmos Evolucionários \cite{eiben2003}.
+
+Na literatura, encontra-se muitas variantes de algoritmos evolucionários. Entretanto, a ideia de base permanece a mesma para todas essas técnicas: dada uma população de indivíduos, a pressão do ambiente promove a seleção natural (sobrevivência dos mais fortes), que causa um aumento na força (fitness) da população. Dada uma função de qualidade a ser maximizada, podemos criar aleatoriamente um grupo de soluções candidatas e aplicar essa função como uma medida abstrata de fitness. Baseado nesse fitness, algumas dessas melhores soluções são selecionadas para produzir a próxima geração através da aplicação de recombinação e/ou mutação. Recombinação é um operador aplicado a dois ou mais candidatos selecionados e resulta em um novo candidato. Mutação é aplicada a um candidato e resulta em um novo candidato. A execução da recombinação e mutação, gera um grupo de novos candidatos, que compete (baseado em seu fitness e talvez sua idade) com os antigos candidatos por um lugar na próxima geração. Esse processo pode ser repetido até que um candidato com suficiente qualidade (a solução) seja encontrada ou um limite computacional anteriormente ajustado seja atingido \cite{eiben2003}.
+
+Esse processo funciona através de duas forças fundamentais que formam a base de sistemas evolucionários:
+
+\begin{itemize}
+ \item Operadores de variação (recombinação e mutação) criam a diversidade necessária e, portanto, facilitam a inovação.
+ \item A seleção age como uma força impulsionando a qualidade
+\end{itemize}
+
+A aplicação dessas duas forças geralmente faz com que o fitness das soluções candidatas aumente a cada nova geração. Pode-se notar que esse esquema pertence à categoria de algoritmos de gerar-e-testar. A função de fitness representa a estimação heurística de qualidade se solução e a busca é dirigida pelos operadores de variação e seleção. A seguir, o Algoritmo \ref{alg:pseudocodigoAlgoritmosEvolucionarios} apresenta a base dos algoritmos evolucionários e a Figura \ref{fig:fluxogramaAlgoritmosEvolucionarios} apresenta o esquema através de fluxograma desses algoritmos.
+
+\begin{center}
+\begin{minipage}{0.92\textwidth}
+\begin{algorithm2e}[H]
+  \DontPrintSemicolon
+  \LinesNumbered
+  \SetAlgoLined
+  \BlankLine
+  %\Entrada{vetor $S$ de segmentos de linha no plano.}
+  \Saida{melhor solução encontrada ao fim da execução}
+  \BlankLine
+  INICIALIZE população com soluções candidatas aleatórias\;
+  AVALIE cada candidato\;
+  \Enqto{CONDIÇÃO DE TÉRMINO não é satisfeita}{
+     SELECIONE pais\;
+     RECOMBINE pares de pais\;
+     REALIZE MUTAÇÃO dos filhos obtidos\;
+     AVALIE os novos candidatos\;
+     SELECIONE indivíduos para a próxima geração\;
+  }
+\caption{Pseudocódigo de Algoritmos Evolucionários \label {alg:pseudocodigoAlgoritmosEvolucionarios}}
+\end{algorithm2e}
+\end{minipage}
+\end{center}
+
+\begin{figure}[h]
+  \centering
+  \caption{Esquema geral de um Algoritmo Evolucionário}
+  \includegraphics[width=6in]{./fig/Fluxograma-Algoritmos-Evolucionarios.pdf}
+  \label{fig:fluxogramaAlgoritmosEvolucionarios}
+\end{figure}
+
+Além desse comportamento geral, também é importante estudar os componentes de um algoritmo evolucionário. Esses algoritmos possuem uma série de componentes, procedimentos e operadores que devem ser especificados afim de se definir um Algoritmo Evolucionário particular. Segue abaixo os principais componentes:
+
+\begin{itemize}
+ \item Representação (definição dos indivíduos)
+ \item Função de avaliação (ou função de fitness)
+ \item População
+ \item Mecanismo de seleção de pais
+ \item Operadores de variação: recombinação e mutação
+ \item Mecanismo de seleção de sobreviventes
+\end{itemize}
+
+A princípio, esses algoritmos eram apenas focados em resolver problemas de único objetivo. Mas com o tempo, foi criada uma nova categoria de Algoritmo Evolucionário: os multiobjetivo. A maioria dos algoritmos dessa família são focados em resolver problemas com um único objetivo. Mas quando o foco é resolver um problema multiobjetivo, são necessários algoritmos preparados para lidar com mais de um objetivo ao mesmo tempo. No geral, esses algoritmos adicionam um arquivo onde armazenam as soluções não dominadas, separadas de onde armazenam a população. Além disso, todos os operadores, bem como a função de fitness, precisam ser adaptadas para lidar com soluções de múltiplos objetivos. Os algoritmos usados nesse trabalho, os quais são apresentados a seguir, estão em estado de arte quanto à solução de problemas multiobjetivo.
 
 \subsection{NSGA-II}
 
+NSGA-II \cite{deb2002} é um algoritmo genético (da família de Algoritmos Evolucionários) criado após vários outros algoritmos com o fim de resolver problemas multiobjetivo. Ele foi a segunda versão de NSGA \cite{srinivas1995}, sendo criado para resolver os seguintes problemas de sua primeira versão: alta complexidade computacional de ordenação de soluções não dominadas, falta de elitismo e a necessidade de especificar um parâmetro de compartilhamento ao algoritmo. Esse algoritmo, de acordo com \cite{deb2002}, demonstrou performance superior a outros dois algoritmos evolucionários de problemas multiobjetivo famosos na época de sua criação: PAES \cite{knowles1999} e SPEA \cite{zitzler1999-2}. Além disso, ele é considerado um dos melhores algoritmos existentes até o momento na solução de problemas multiobjetivo.
+
+A sigla NSGA é do inglês Nondominated Sorting Genetic Algorithm, o que já indica o fato de ser um algoritmo genético e trabalhar com o ordenamento das soluções não dominadas. Portanto, assim como qualquer algoritmo genético, ele faz uso dos operadores de seleção, mutação e e recombinação. Um diferencial é seu uso de elitismo no operador de seleção. Isso significa que a cada nova geração, os filhos são combinados com os pais e todos eles passam por uma seleção elitista, em que os indivíduos são ordenados por um ranking e apenas os melhores sobrevivem para a próxima geração. Caso aconteça algum empate na avaliação do rank, uma estimativa de densidade baseada em crowding distance dos individuos ao redor é usada para selecionar as soluções mais promissoras. Esse processo de seleção garante uma convergência mais rápida e que boas soluções jamais sejam perdidas.
+
+Além de convergência, é desejável que um algoritmo mantenha um bom espalhamento de suas soluções. O NSGA utilizava uma abordagem que mantinha uma sustentável diversidade da população com o ajuste apropriado dos parâmetros necessários. Entretanto, existem dois problemas com a abordagem adotada pelo NSGA: seu desempenho depende largamente do valor escolhido para o parâmetro e sua complexidade computacional é alta. Para resolver esses dois problemas, o NSGA-II criou uma nova abordagem. Em sua seleção, os indivíduos são ordenados não só por seu ranking, mas também de acordo com a estimativa de densidade populacional ao seu redor. Ao seja, caso haja algum empate no ranking, uma solução que se encontra em uma área com menor densidade ganha preferência. Dessa forma, o NSGA-II garante uma boa diversidade sem requerer qualquer parâmetro definido pelo usuário e também conseguiu uma menor complexidade computacional.
+
+Após discutirmos os operadores utilizados pelo NSGA-II em sua implementação, podemos observar seu pseudocódigo no Algorítmo \ref{alg:pseudocodigoNSGA-II}.
+
+\begin{center}
+\begin{minipage}{0.92\textwidth}
+\begin{algorithm2e}[H]
+  \DontPrintSemicolon
+  \LinesNumbered
+  \SetAlgoLined
+  \BlankLine
+  \Entrada{Tamanho da População: $N$}
+  \Saida{População: $P(t)$}
+  \BlankLine
+  INICIALIZE a população $P(0)$ com soluções candidatas aleatórias\;
+  ORDENE a população de acordo com ranking de não-dominação\;
+  \Enqto{CONDIÇÃO DE TÉRMINO não é satisfeita}{
+     CALCULE a crowding distance dos indivíduos de $P(t)$\;
+     SELECIONE pais com torneio bináro\;
+     RECOMBINE pares de pais para criar os filhos $Q(t)$\;
+     REALIZE MUTAÇÃO dos filhos obtidos $Q(t)$\;
+     CALCULE a crowding distance dos indivíduos de $Q(t)$\;
+     COMBINE os pais $P(t)$ e os filhos $Q(t)$, gerando $R(t)$\;
+     ORDENE a população $R(t)$ de acordo com ranking de não-dominação e crowding distance\;
+     SELECIONE as $N$ melhores soluções de $R(t)$ para compor a nova geração $P(t)$\;
+  }
+\caption{Pseudocódigo do NSGA-II \label {alg:pseudocodigoNSGA-II}}
+\end{algorithm2e}
+\end{minipage}
+\end{center}
+
 \subsection{SPEA2}
+
+Criado após o NSGA-II, o SPEA2 \cite{zitzler2001} é a segunda versão do algoritmo SPEA \cite{zitzler1999-2}, cuja sigla vem de Strength Pareto Evolutionary Algorithm, sendo ambos algoritmos evolucionários criados para lidar com problemas multiobjetivo. Tratando-se de um algoritmo evolucionário, encontra-se os operadores de seleção, recombinação e recombinação, como qualquer outro.
+
+Entretanto, a grande diferença desses algoritmos é o uso tanto de população como também de um arquivo externo para armazenar as soluções não dominadas. Sua primeira versão, o SPEA, começa com uma população inicial aleatória e um arquivo externo vazio. A cada iteração, todos membros não dominados são copiados para o arquivo; qualquer indivíduo dominado ou duplicado é removido do arquivo durante essa operação de atualização. Se o tamanho do arquivo exceder um limite predefinido, mais membros são deletados por uma técnica de clustering que preserva as características da Fronteira de não dominados. Depois, valores de fitness são ajustados para os membros da população e do arquivo utilizando a seguinte regra \cite{zitzler2001}:
+
+\begin{itemize}
+ \item Cada indivíduo $i$ do arquivo recebe o valor de força $S(i) \in [0, 1)$, que ao mesmo tempo representa seu valor de fitness $F(i)$. $S(i)$ é o número de membros da população $j$ que são dominados por ou igual a $i$, divido pelo tamanho da população mais um.
+ \item O valor de fitess $F(j)$ de um indivíduo $j$ é calculado somando os valores de força $S(i)$ de todos os membros do arquivo $i$ que dominam ou são iguais a $j$, adicionando um no fim.
+\end{itemize}
+
+O próximo passo do SPEA é a seleção de pais, a qual ocorre com torneiro binário da união da população e do arquivo, de forma que aqueles com menor valor de fitness possuem mais chances de serem selecionados. Assim, são gerados os filhos por recombinação e mutação, sendo esses os membros da população da próxima geração.
+
+Esse algoritmo obteve muita performance e foi utilizado em diversos estudos. Porém, seus criadores perceberam oportunidades de melhoria ao observar o avanço de outros algoritmos e também algumas fraquezas:
+
+\begin{description}
+ \item[Atribuição de fitness] Indivíduos dominados pelos mesmos membros do arquivo recebem mesmo valor de fitness. Isso cria um caso em que, caso o arquivo possua um único elemento, todos membros da população terão mesmo fitness, transformando o algoritmo em uma busca aleatória.
+ \item[Estimativa de densidade] A técnica de clustering faz uso de estimativa de densidade apenas no arquivo e não na população.
+ \item[Truncamento do arquivo] Apesar da técnica de clustering conseguir reduzir o arquivo sem destruir as características do grupo, pode acabar perdendo soluções extremas, que poderiam levar a um maior espalhamento das soluções não dominadas.
+\end{description}
+
+Para resolver esses problemas, foi criado o SPEA2, cujo pseudocódigo é apresentado no Algoritmo \ref{alg:pseudocodigoSPEA2}. Algumas diferenças para a versão anterior podem ser notadas. A primeira delas é a criação de uma nova estratégia de atribuição de fitness, que incorpora informação de densidade. Além disso, o tamanho do arquivo é fixo, de forma que ele será preenchido com solução dominadas caso não haja soluções não dominadas o suficiente. Além disso, a técnica de clustering usada no truncamento do arquivo foi substituída por uma técnica similar, mas que não perde pontos extremos. Outro detalhe importante, é que apenas membros do arquivo participam da seleção de pais.
+
+\begin{center}
+\begin{minipage}{0.92\textwidth}
+\begin{algorithm2e}[H]
+  \DontPrintSemicolon
+  \LinesNumbered
+  \SetAlgoLined
+  \BlankLine
+  \Entrada{Tamanho da População: $N$; Tamanho do Arquivo: $\bar{N}$}
+  \Saida{Soluções não dominadas: $A$}
+  \BlankLine
+  INICIALIZE a população $P(0)$ com soluções candidatas aleatórias e crie um arquivo externo vazio $\bar{P}(0)$\;
+  \Enqto{CONDIÇÃO DE TÉRMINO não é satisfeita}{
+     CALCULE os valores de fitness dos indivíduos em $P(t)$ e $\bar{P}(t)$\;
+     COPIE todos indivíduos não dominados de $P(t)$ e $\bar{P}(t)$ para $\bar{P}(t+1)$.\;
+     \eSe{Tamanho de $\bar{P}(t+1)$ excede $\bar{N}$}{
+        REDUZA $\bar{P}(t+1)$ utilizando o operador de truncamento\;
+     }{
+        PREENCHA $\bar{P}(t+1)$ com indivíduos dominados de $P(t)$ e $\bar{P}(t)$ até que tenha tamanho igual a $\bar{N}$\;
+     }
+     
+     AJUSTE $A$ com as soluções não dominadas de $\bar{P}(t+1)$\;
+     SELECIONE pais com torneio bináro\;
+     RECOMBINE pares de pais para criar os filhos $Q(t)$\;
+     REALIZE MUTAÇÃO dos filhos obtidos $Q(t)$\;
+     AJUSTE $Q(t)$ como população $P(t+1)$ da nova geração\;
+  }
+\caption{Pseudocódigo do SPEA2 \label {alg:pseudocodigoSPEA2}}
+\end{algorithm2e}
+\end{minipage}
+\end{center}
+
+A nova estratégia de fitness utilizada pelo SPEA visa evitar a situação em que indivíduos dominados pelos mesmos membros do arquivo tenham valor e fitness idêntico. Cada indivíduo $i$ do arquivo $\bar{P}(t)$ e da população $P(t)$ recebe o valor de força $S(i)$ representando o número de soluções que ele domina. Com esse valor, calcula-se o fitness bruto $R(i)$, o qual é calculado pela soma dos valores de força $S(j)$ das soluções que dominam $i$. Dessa forma, um indivíduo não dominado, teria valor zero, enquanto um indivíduo dominado por vários outros, teria um alto valor de $R(i)$. Apesar desse fitness bruto trazer uma boa ordenação das soluções, ele pode falhar quando as soluções não dominarem umas às outras. Portanto, incorporou-se informação de densidade para discriminar indivíduos com valores idêntidos de fitness bruto. A técnica utilizada pelo SPEA2 é uma adaptação do método KNN \cite{silverman1986}, onde a densidade de qualquer ponto é uma função decrescente da distância para o k-th ponto mais próximo. Para cada indivíduo $i$, as distâncias no espaço objetivo para todos indivíduos $j$ do arquivo e da população são calculadas e ordenadas em uma lista. Utiliza-se, então, essa lista para calcular a densidade $D(i)$ e finalmente obter o fitness $F(i)$, que é obtido pela soma de $R(i)$ e $D(i)$.
 
 \subsection{MOCell}
 
-\section{Inteligência de Partículas}
+Existem diversas subclasses de Algoritmos Evolucionários, como Algoritmos Genéticos, Programação Genética, Programação Evolucionária, entre outros. O que eles têm em comum é a busca de melhores soluções através dos operadores evolucionários em cima de uma população. Tal população, na maioria desses algoritmos, não tem qualquer organização. Todos indivíduos são livres para interagirem entre si através dos operadores. Entretanto, existe ainda subclasses que organizam essa população de maneira estruturada. Uma dessas sub classes, aquela do MOCell \cite{nebro2006} \cite{nebro2007}, é o Algoritmo Genético Celular (cGA).
+
+Em cGAs, existe o conceito de vizinhança, o qual é intensivamente utilizado. Os indivíduos só podem interegir com vizinhos próximos durante a fase de reprodução. A sobreposição de pequenas vizinhanças (Figura \ref{fig:cgaDifusao}) ajuda na exploração do ambiente porque a lenta difusão induzida de soluções pela população cria um certo tipo de diversificação, enquanto a intensificação acontece dentro de cada vizinhança através dos operadores genéticos \cite{nebro2006}.
+
+\begin{figure}[h]
+  \centering
+  \caption{Sobreposição de vizinhanças de indivíduos a qual gera a difusão de soluções através delas.}
+  \includegraphics[width=2.5in]{./fig/cGA-Sobreposicao.pdf}
+  \label{fig:cgaDifusao}
+\end{figure}
+
+O algoritmo do cGA é bem simples. A população é geralmente estruturada em um grid de $d$ dimensões ($d$x$d$) e o tamanho da vizinhança é definido. Então, em cada iteração do algoritmo, ele itera por todos os indivíduos da população, selecionando um outro indivíduo da vizinhança, fazendo a recombinação entre eles e fazendo a mutação do indivíduo gerado. Depois disso, o indivíduo iterado é substituído por seu filho na próxima geração. Por fim, avalia-se o fitness da nova geração. Esse processo que acontece com cada indivíduo pode ser observado na Figura \ref{fig:cgaIteracao}.
+
+\begin{figure}[h]
+  \centering
+  \caption{Processo de reprodução do cGA}
+  \includegraphics[width=4in]{./fig/cGA-Iteracao.pdf}
+  \label{fig:cgaIteracao}
+\end{figure}
+
+Para trazer esse algoritmo para o mundo de otimização multiobjetivo, foi criado o MOCell. Ele é a aplicação do mesmo algoritmo, tendo como principal diferença a adição de um arquivo externo para guardar as soluções não dominadas, como é bem comum em algoritmos multiobjetivo. Para manter a diversidade do arquivo, o MOCell faz uso da técnica de crowding distance proposta pelo NSGA-II para selecionar as soluções a serem mantidas no arquivo, quando esse fica cheio. Além disso, um outro passo extra chamado de feedback é adicionado: um número fixo de indivíduos aleatoriamente selecionados da população são substituídos por soluções do arquivo. A Figura \ref{fig:mocellIteracao} mostra o processo de reprodução do MOCell e o Algoritmo \ref{alg:pseudocodigoMOCell} mostra seu pseudocódigo.
+
+\begin{figure}[h]
+  \centering
+  \caption{Processo de reprodução do MOCell}
+  \includegraphics[width=5in]{./fig/MOCell-Iteracao.pdf}
+  \label{fig:mocellIteracao}
+\end{figure}
+
+\begin{center}
+\begin{minipage}{0.92\textwidth}
+\begin{algorithm2e}[H]
+  \DontPrintSemicolon
+  \LinesNumbered
+  \SetAlgoLined
+  \BlankLine
+  \Entrada{Tamanho do Grid: $d$ ($N = d^{2}$); Tamanho do Arquivo: $\bar{N}$; Tamanho do feedback: $F$}
+  \Saida{Soluções não dominadas: $A$}
+  \BlankLine
+  INICIALIZE a população $P(0)$ com soluções candidatas aleatórias e crie um arquivo externo vazio $\bar{P}$\;
+  \Enqto{CONDIÇÃO DE TÉRMINO não é satisfeita}{
+     \Para{cada indivíduo $i$ da população $P$}{
+        OBTENHA a lista de vizinhos $V(i)$\;
+        SELECIONE pais com torneio bináro da lista $V(i)$\;
+        RECOMBINE os pais para criar o filho $f(i)$\;
+        REALIZE MUTAÇÃO do filho $f(i)$\;
+        AVALIE FITNESS do filho $f(i)$\;
+        INSIRA o filho $f(i)$ na população da nova geração $P(t+1)$\;
+        INSIRA o filho $f(i)$ no arquivo $\bar{P}$ se for uma solução não dominada\;
+     }
+     SUBSTITUA $F$ indivíduos aleatórios da população $P(t+1)$ por soluções do arquivo $\bar{P}$ (FEEDBACK)\;
+  }
+\caption{Pseudocódigo do MOCell \label {alg:pseudocodigoMOCell}}
+\end{algorithm2e}
+\end{minipage}
+\end{center}
+
+\section{Otimização por Enxame de Partículas}
+
+Assim como os Algoritmos Evolucionários foram criados para resolver problemas complexos inspirados na natureza, também foram criados algoritmos da família de Inteligência de Partículas. Esses sistemas computacionais são baseados na inteligência coletiva demonstrada através da cooperação de um grande número de agentes homogêneos no ambiente. Tal inteligência é descentralizada, auto-organizada e distribuída pelo ambiente \cite{brownlee2011}. Alguns exemplo de inspirações retiradas da natureza são cardumes de peixes, bandos de pássados e colônias de formigas.
+
+Esse paradigma consiste em dois sub campos de estudo: 1) Otimização por Colônia de Formigas, que investiga algoritmos probabilísticos inspirados pelo comportamento de formigas; e 2) Otimização por Enxame de Partículas, que investiga algoritmos probabilísticos inspirados em bandos, cardumes e rebanhos. Assim como algoritmos evolucionários, esses algoritmos são adaptativos e são normalmente aplicados em busca e otimização.
+
+Os algoritmos estudados aqui fazem parte do segundo sub campo de estudo: Otimização por Enxame de Partículas. A metáfora utilizada nesses algoritmos é que as partículas de um enxame voam através de um ambiente, seguindo os membros mais capazes do enxame e geralmente baseando seus movimentos em boas áreas explocaradas anteriormente.
+
+Colocando isso no contexto de otimização, cada partícula seria similar ao indivíduo de um algoritmo evolucionário. Entretanto, elas não representam soluções, mas suas posições são que representam as soluções candidatas. Da mesma forma, existe uma função de avaliação (fitness). Mas, nesse caso, ela avalia a posição atual da partícula no ambiente. E, diferente dos algoritmos evolucionários, a exploração do ambiente não acontece com substituição das partículas, mas elas mesmas se movimentam pelo ambiente e são novamente avaliadas de acordo com sua novo posição. Para iniciar a busca, as partículas são posicionadas aleatoriamente pelo ambiente e recebem pequenas velocidades aleatórias (com direção e sentido). O algoritmo, então, movimenta essas partículas de acordo com sua velocidade atual e essa velocidade é alterada a cada iteração, tendendo a seguir a melhor posição encontrada pela partícula em questão até o momento e a melhor posição encontrada pelo enxame. Entretanto, essas alterações de velocidade também possuem fatores aleatórios, para evitar que as partículas venham a convergir rapidamente, sem explorar bem o ambiente. Dessa forma, apesar de se espalharem o suficiente para explorar as soluções candidatas, as partículas tendem a convergir nas melhores soluções.
+
+Esse algoritmo depende de duas equações importantes. A de atualização da velocidade, a qual é executada para cada partícula em cada iteração, definida pela Equação \ref{eq:velocidadePSO}. E a de atualização da posição de cada partícula, definida pela Equação \ref{eq:posicaoPSO}. Nessas equações, $i$ é o índice da partícula em questão, $v_{i}(t)$ é a velocidade atual dessa partícula, $v_{i}(t+1)$ é a nova velocidade dela, $c_{1}$ e $c_{2}$ são os coeficientes de peso entre a melhor posição visitada pela partícula e a melhor posição visitada pelo enxame, respectivamente, $p_{i}(t)$ é a posição da partícula no momento $t$, $p_{i}^{best}$ é a melhor posição encontrada pela partícula e $p_{g}^{best}$ é a melhor posição encontrada pelo enxame. A função $rand()$ gera um número uniformemente aleatório $\in [0, 1]$. Existem variações da Equação \ref{eq:velocidadePSO} que considera a melhor posição encontrada pela vizianhança da partida, ao invés do enxame todo.
+
+\begin{equation}\label{eq:velocidadePSO}
+ v_{i}(t+1) = v_{i}(t) + c_{1}.rand().(p_{i}^{best} - p_{i}(t)) + c_{2}.rand().(p_{g}^{best} - p_{i}(t))
+\end{equation}
+
+\begin{equation}\label{eq:posicaoPSO}
+ p_{i}(t+1) = p_{i}(t) + v_{i}(t)
+\end{equation}
+
+O pseudocódigo do algoritmo de Otimização por Exame de Partículas encontra-se na Listagem \ref{alg:pseudocodigoPSO}.
+
+\begin{center}
+\begin{minipage}{0.92\textwidth}
+\begin{algorithm2e}[H]
+  \DontPrintSemicolon
+  \LinesNumbered
+  \SetAlgoLined
+  \BlankLine
+  %\Entrada{TamanhoDoProblema, TamanhoDaPopulacao}
+  \Saida{$p_{g}^{best}$}
+  \BlankLine
+  
+  INICIALIZE as partículas com posições e velocidades aleatórias \;
+  \Enqto{CONDIÇÃO DE TÉRMINO não é satisfeita}{
+    \Para{cada partícula $i$}{
+      CALCULE seu valor de fitness\;
+      \Se{o valor do fitness for melhor que o valor de fitness de $p_{i}^{best}$}{
+	$p_{i}^{best}$ $\leftarrow$ $p_{i}$\;
+      }
+      \Se{o valor do fitness for melhor que o valor de fitness de $p_{g}^{best}$}{
+	$p_{g}^{best}$ $\leftarrow$ $p_{i}$\;
+      }
+    }
+    
+    \Para{cada partícula $i$}{
+      CALCULE a velocidade $v_{i}$ de acordo com a Equação \ref{eq:velocidadePSO}\;
+      ATUALIZE a posição $p_{i}$ de acordo com a Equação \ref{eq:posicaoPSO}\;
+    }
+  }
+\caption{Pseudocódigo do Algoritmo de Otimização por Enxame de Partículas \label {alg:pseudocodigoPSO}}
+\end{algorithm2e}
+\end{minipage}
+\end{center}
+
+Assim como no caso dos Algoritmos Evolucionários, o Algoritmo de Otimização por Enxame de Partícula também foi projetado para resolver problemas com único objetivo. Posteriormente, foram projetadas variações do algoritmo para lidar com problemas multiobjetivo e elas, no geral, adicionam um arquivo para armazenar as soluções não dominadas além de outras dinâmicas de atualização de velocidade e posição das partículas. Diversos algoritmos foram desenvolvidos, mas neste trabalho serão apresentados apenas o OMOPSO e o SMPSO, os quais podem ser considerados os melhores da literatura atual.
 
 \subsection{OMOPSO}
 
+Houveram várias tentativas criar os MOPSO (Multi-Objective Particle Swarm Optimization), ou seja, versões do algoritmo de Otimização por Enxame de Partículas criados para resolver problemas multiobjetivos. No momento em que OMOPSO (Optimized Multi-Objective Particle Swarm Optimization) \cite{reyes2005}, as modificações mais comuns no algoritmo básico do PSO foram no processo de seleção do $p_{i}^{best}$ e $p_{g}^{best}$. A proposta do OMOPSO é baseada na dominância de Pareto e usa um fator de crowding para a seleção dos líderes. Além disso, incorporaram operadores de mutação (retirados de Algoritmos Evolucionarios) e o conceito de $\epsilon$-dominância \cite{laumanns2002}.
+
+A maior dificuldade em adaptar o PSO para problemas multiobjetivos é como generalizar o conceito de líder ($p_{g}^{best}$) na presença de soluções igualmente boas. A primeira alternativa seria considerar todas soluções não dominadas como líderes, mas isso aumentaria o número de líderes rapidamente. Então, a abordagem utilizada pelo OMOPSO foi utilizar, além da Fronteira de Pareto, um fator de crowding para discriminar melhor as soluções. Para deixar mais claro, para cada partícula, seleciona-se seu líder através de torneiro binário baseado no valor de crowding dos líderes disponíveis no arquivo.
+
+Esse arquivo externo utilizado para armazenar os líderes (soluções não dominadas), assim como outros algoritmos, possui tamanho fixo. No caso desse algoritmo, seu tamanho é o mesmo do enxame. Para definir quais soluções não dominadas manter no arquivo quando esse atinge seu limite, utiliza-se também a técnica de fator de crowding. Ao fim de cada iteração, atualiza-se o arquivo e seus valores de crowding. Se o tamanho desse arquivo é excedido, seleciona-se as melhores soluções baseado no valor de crowding, eliminando-se o restante.
+
+Além disso, como dito, o OMOPSO incorpora o conceito de mutação em seu algoritmo. Dois operadores de mutação são utilizados: mutação uniforme (o intervalo de variabilidade permitido por cada variável de decisão é constante) e mutação não uniforme (o intervalor de variabilidade cai à medida que o tempo passa). Esses operadores modificam os valores das variáveis de decisão de uma partícula com uma certa probabilidade. Eles são adotados por partes diferentes do enxame. Esse é dividido em três partes: a primeira não recebe qualquer mutação, a segunda terá mutação uniforme e a terceira terá mutação não uniforme. Com esses operadores, o objetivo é ter a habilidade de explorar grandes áreas (mutação uniforme) e pequenas áreas (mutação não uniforme) è medida que a busca avança. Todas essas sub partes do enxame compartilham o arquivo de líderes.
+
+Por fim, esse algoritmo adota o conceito de $\epsilon$-dominância \cite{laumanns2002} para melhorar a diversidade das soluções e a convergência para a Fronteira de Pareto. Esse conceito funciona através de um relaxamento do critério de dominância, em que, caso uma solução seja dominada por um pequeno valor $\epsilon$, isso é negligenciado e essa solução entra para o arquivo de soluções não dominadas.
+
+Esse algoritmo não muda muito o cálculo de velocidade e posição da partícula. Em relação à Equação \ref{eq:velocidadePSO}, a única diferença está na multiplicação de um fator $W$ à velocidade atual da partícula, como pode ser visto na Equação \ref{eq:velocidadeOMOPSO}. Os fatores $W$, $c_{1}$ e $c_{2}$ recebem valores aleatórios. Sendo W um número real entre $0,1$ e $0,5$, e $c_{1}$ e $c_{2}$ números reais entre $1,5$ e $2,0$. Isso diferencia de outros algoritmos, que fixam os valores desses fatores. O cálculo da nova posição da partícula permanece o mesmo, valendo a Equação \ref{eq:posicaoPSO}. O pseudocódigo do OMOPSO pode ser vist no Algoritmo \ref{alg:pseudocodigoOMOPSO}.
+
+\begin{equation}\label{eq:velocidadeOMOPSO}
+ v_{i}(t+1) = W.v_{i}(t) + c_{1}.rand().(p_{i}^{best} - p_{i}(t)) + c_{2}.rand().(p_{g}^{best} - p_{i}(t))
+\end{equation}
+
+\begin{center}
+\begin{minipage}{0.92\textwidth}
+\begin{algorithm2e}[H]
+  \DontPrintSemicolon
+  \LinesNumbered
+  \SetAlgoLined
+  \BlankLine
+  %\Entrada{TamanhoDoProblema, TamanhoDaPopulacao}
+  \Saida{Arquivo-$\epsilon$}
+  \BlankLine
+  
+  INICIALIZE as partículas com posições e velocidades aleatórias\;
+  INICIALIZE arquivo de líderes\;
+  ENVIE os líderes para o Arquivo-$\epsilon$\;
+  CALCULE o valor de crowding dos líderes\;
+  \Enqto{CONDIÇÃO DE TÉRMINO não é satisfeita}{
+    \Para{cada partícula $i$}{
+      SELECIONE líder\;
+      CALCULE a velocidade $v_{i}$ de acordo com a Equação \ref{eq:velocidadeOMOPSO}\;
+      ATUALIZE a posição $p_{i}$ de acordo com a Equação \ref{eq:posicaoPSO}\;
+      REALIZE mutação\;
+      AVALIE a partícula $i$\;
+      ATUALIZE $p_{i}^{best}$\;
+    }
+    ATUALIZE líderes\;
+    ENVIE os líderes para o Arquivo-$\epsilon$\;
+    CALCULE o valor de crowding dos líderes\;
+  }
+\caption{Pseudocódigo do OMOPSO e SMPSO \label {alg:pseudocodigoOMOPSO}}
+\end{algorithm2e}
+\end{minipage}
+\end{center}
+
 \subsection{SMPSO}
+
+Continuando a busca por adaptações de PSO para problemas multiobjetivos, foi criado o SMPSO (Speed-constrained Multi-Objective PSO) \cite{nebro2009}. Em sua criação, seus autores analizaram um grupo de 6 algoritmos existentes de MOPSO e decidiram pegar o OMOPSO (considerado por eles o mais proeminente) como base para seu novo algoritmo. Como indicado pelo nome, o principal objetivo desse novo algoritmo é o uso de uma nova estratégia para limitar as velocidades das partículas, tornando possível uma otimização mais eficiente em casos em que elas se tornam altas demais. O autores chegaram à criação dessa estratégia ao notarem que o excesso de velocidade apresentado no benchmarking dos 6 algoritmos estudados resultavam em movimentos instáveis das partículas, os tornando incapazes de resolver alguns problemas multimodais, como o conhecido benchmarking ZDT4.
+
+Por ser baseado no OMOPSO, a maioria do que foi apresentado na seção anterior continua válido para esse algoritmo. As únicas diferenças do SMPSO para o OMOPSO está no uso de constrição de velocidade, os valores dos fatores $c_{1}$ e $c_{2}$, os quais passaram a ter valores entre $1,5$ e $2,5$, e a mutação realizada nas partículas. Enquanto o OMOPSO utilizada os dois esquemas de mutação discutidos anteriormente, o SMPSO aplica uma mutação polinomial em 15\% das partículas.
+
+A estratégia de constrição de velocidade do SMPSO funciona da seguinte maneira. Primeiro, calcula-se a velocidade da partícula da mesma maneira que o OMOPSO, como pode ser visto na Equação \ref{eq:velocidadeOMOPSO}. Essa velocidade é, então, multiplicada pelo fator de constrição $\varphi$ (Equação \ref{eq:fatorConstricaoSMPSO}) e o valor é restringido utilizando a Equação \ref{eq:constricaoSMPSO}.
+
+\begin{equation}\label{eq:fatorConstricaoSMPSO}
+ \varphi = \begin{cases} 
+  c_{1}+c_{2} &\text{se $c_{1}+c_{2} > 4$} \\
+  0 &\text{caso contrário}
+ \end{cases}                                
+\end{equation}
+
+\begin{equation}\label{eq:constricaoSMPSO}
+ v_{i,j}(t) = \begin{cases} 
+  delta_{j} &\text{se $v_{i,j}(t) > delta_{j}$} \\
+  -delta_{j} &\text{se $v_{i,j}(t) \leq -delta_{j}$} \\
+  v_{i,j}(t) &\text{caso contrário}
+ \end{cases}
+\end{equation}
+
+\begin{equation}\label{eq:deltaConstricaoSMPSO}
+ delta_{j} = \frac{(limite\_superior_{j} - limite\_inferior_{j})}{2}
+\end{equation}
+
+Mudando o cálculo da velocidade e o operador de mutação aplicado, o pseudocódigo do SMPSO é exatamente o mesmo do OMOPSO e pode ser visto no Algoritmo \ref{alg:pseudocodigoOMOPSO}.
