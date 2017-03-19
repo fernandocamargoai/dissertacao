@@ -44,7 +44,7 @@ Naturalmente, esse modelo matemático depende de outras variáveis além das variáv
  \item[$h(v, u)$] altura de queda líquida ($h_{mon}(v) - h_{jus}(u)$) [$m$]
 \end{description}
 
-Vale notar que a variável $q$, a qual representa a vazão turbinada, é limitada pelo engolimento máximo da usina $q^{max}$, que é a vazão turbinada capaz de produzir a potência máxima da usina para uma data altura de queda.
+Vale notar que a variável $q$, a qual representa a vazão turbinada, é limitada pelo engolimento máximo da usina $q^{max}$, que é a vazão turbinada capaz de produzir a potência máxima da usina para uma dada altura de queda.
 
 \subsection{Reservatórios}
 
@@ -83,10 +83,10 @@ As unidades geradoras são responsáveis por transformar energia potencial em ener
  de_{p} = dm.g.h
 \end{equation}
 
-Considerando o peso específico da água $p$ ($1000 kg/m^{3}$) e tansformando o volume de água em vazão no tempo, podemos reescrever a Equação \ref{eq:variacaoDeEnergiaPotencial} conforme a Equação \ref{eq:variacaoDeEnergiaPotencial2}.
+Considerando o peso específico da água $pa$ ($1000 kg/m^{3}$) e tansformando o volume de água em vazão no tempo, podemos reescrever a Equação \ref{eq:variacaoDeEnergiaPotencial} conforme a Equação \ref{eq:variacaoDeEnergiaPotencial2}.
 
 \begin{equation}\label{eq:variacaoDeEnergiaPotencial2}
- de_{p} = p.q.dt.g.h
+ de_{p} = pa.q.dt.g.h
 \end{equation}
 
 A transformação de energia potencial em energia elétrica depende do rendimento $\eta$ do processo de conversão de energia pelo conjunto turbina/gerador. Essa transformação pode ser expressa pela Equação \ref{eq:transformacaoEnergiaPotencialEletrica}, em que $\eta$ varia em função da vazão turbinada e a altura de queda líquida.
@@ -98,28 +98,28 @@ A transformação de energia potencial em energia elétrica depende do rendimento $
 Porém, o planejamento da operação energética no sistema brasileiro considera um rendimento médio $\bar{\eta}$ \cite{fortunato1990}. Logo, a equação da geração de energia elétrica pode ser escrita como na Equação \ref{eq:geracaoEnergiaEletrica}.
 
 \begin{equation}\label{eq:geracaoEnergiaEletrica}
- de_{e} = \bar{\eta}.p.q.dt.g.h
+ de_{e} = \bar{\eta}.pa.q.dt.g.h
 \end{equation}
 
 Transformando essa energia em potência ($p = \tfrac{de}{dt}$), temos a Equação \ref{eq:geracaoPotencia}.
 
 \begin{equation}\label{eq:geracaoPotencia}
- p = \bar{\eta}.p.q.g.h
+ p = \bar{\eta}.pa.q.g.h
 \end{equation}
 
 A altura de queda considerada é a altura de queda líquida do reservatório, ou seja, a altura de queda bruta menos as perdas de carga $pc$, como mostrado na Equação \ref{eq:alturaQuedaBruta2}. Assim, chegamos na Equação \ref{eq:geracaoPotencia2}.
 
 \begin{equation}\label{eq:geracaoPotencia2}
- p = \bar{\eta}.p.q.g.(h_{mon}(v) - h_{jus}(u) - pc)
+ p = \bar{\eta}.pa.q.g.(h_{mon}(v) - h_{jus}(u) - pc)
 \end{equation}
 
-Englobando em uma constante $k$ o rendimento do conjunto turbina/gerador ($\bar{\eta}$), a aceleração da gravidade ($g$) e o peso específico da água ($p$), pode-se escrever a função de geração hidráulica ($gh$) conforme a Equação \ref{eq:geracaoHidraulica}.
+Englobando em uma constante $k$ o rendimento do conjunto turbina/gerador ($\bar{\eta}$), a aceleração da gravidade ($g$) e o peso específico da água ($pa$), pode-se escrever a função de geração hidráulica ($gh$) conforme a Equação \ref{eq:geracaoHidraulica}.
 
 \begin{equation}\label{eq:geracaoHidraulica}
  gh = k.(h_{mon}(v) - h_{jus}(u) - pc).q
 \end{equation}
 
-Assim, pode-se observar que a geração hidrelétrica é uma função do volume armazenado e das vazões turbinada e vertida. A constante $k=\bar{\eta}.p.g$ é comumente denominada produtibilidade específica.
+Assim, pode-se observar que a geração hidrelétrica é uma função do volume armazenado e das vazões turbinada e vertida. A constante $k=\bar{\eta}.pa.g$ é comumente denominada produtibilidade específica.
 
 Segundo \cite{fortunato1990}, o rendimento médio calculado para grandes unidades geradoras situa-se no intervalo:
 

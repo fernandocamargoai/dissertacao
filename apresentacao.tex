@@ -15,6 +15,7 @@
 \xdefinecolor{gray95}{gray}{0.65}
 \xdefinecolor{gray25}{gray}{0.8}
 \usepackage{outlines}
+\usepackage{verbatim}
 
 \graphicspath{{./fig/}}
 
@@ -48,14 +49,12 @@
 
 \section[O Problema]{Planejamento Energético de Sistemas Hidrotérmicos}
 
-\subsection{Sistemas Hidrotérmicos de Geração}
-
 \begin{frame}
   \frametitle{Matriz energética brasileira}
   
   A atual matriz brasileira de produção de energia elétrica é muito dependente dos fluxos da Natureza.
   
-  \begin{table}[h]
+  \begin{table}
   \caption{Dependência da Natureza para geração de energia elétrica (Fonte: ANEEL (2012))}
   \label{table:dependenciaNatureza2012}
   \centering
@@ -82,6 +81,7 @@
   \end{outline}
 \end{frame}
 
+\begin{comment}
 \begin{frame}
   \frametitle{Crises energéticas brasileiras}
   
@@ -105,6 +105,7 @@
   \end{outline}
 \end{frame}
 
+
 \begin{frame}
   \frametitle{O Problema do Planejamento Energético de Sistemas Hidrotérmicos}
   
@@ -115,12 +116,12 @@
     \1<3-> Aleatoriedade das vazões
     \1<4-> Objetivos:
       \2<4-> Minimizar custo de produção (custo térmico)
-      \2<5-> Definir uma estratégia de geração para cada usina de interconectada
-      \2<6-> Aumentar produção hidrelétrica para diminuir termelétrica
+      \2<5-> Aumentar produção hidrelétrica para diminuir termelétrica
+      \2<6-> Definir uma estratégia de geração para cada usina de interconectada
       \2<7-> Atender demanda com confiabilidade
-  
   \end{outline}
 \end{frame}
+\end{comment}
 
 \begin{frame}
   \frametitle{O Problema do Planejamento Energético de Sistemas Hidrotérmicos}
@@ -133,63 +134,654 @@
     \1<4-> Problema estocástico
     \1<5-> De grande porte
   \end{outline}
+  \onslide<6->{Adoção de único modelo inviável.\\}
+  \onslide<7->{\textbf{Solução: decomposição do problema.}}
 \end{frame}
 
+\begin{comment}
 \subsection{Técnicas Utilizadas}
+\end{comment}
+
+\begin{frame}
+  \frametitle{Modelagem do problema}
+  
+  Modelo de cadeias de coordenação hidrotérmica:
+  \begin{outline}
+    \1<1-> Problema decomposto em diferentes escalas de tempo
+    \1<2-> Em cada escala, determinados aspectos são considerados e outros ignorados
+      \2 Alta escala: maior impacto de aleatoriedades
+      \2 Menor escala: problema mais determinístico
+    \1<3-> O resultado de cada escala superior gera metas para a escala inferior
+  \end{outline}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Decomposição Temporal do Problema}
+  
+  \begin{figure}
+    \centering
+    \includegraphics[width=2.4in]{./fig/Decomposicao-Temporal.pdf}
+    \label{fig:decomposicaoTemporal}
+  \end{figure} 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Planejamento de Médio Prazo}
+  
+  \begin{outline}
+    \1<1-> Discretização semanal ou mensal
+    \1<2-> Grau de incerteza razoável: problema tratado como determinístico
+    \1<3-> Gera política de operação indidualizada (meta de geração)
+      \2 Características individuais da usina
+      \2 Acoplamento hidráulico
+      \2 Possíveis diversidades
+    \1<4-> Afluências e demanda podem ser previstas por modelos de séries temporais
+  \end{outline}
+\end{frame}
+
+\begin{comment}
+\begin{frame}
+  \frametitle{Algoritmos utilizados}
+  
+  \begin{outline}
+  \0 \onslide<1->{Algoritmos:}
+    \1<1-> Programa Dinâmica e Estocástica
+      \2 Uma tabela de soluções ótimas para cada estado do sistema é gerada
+      \2 Explosão combinatorial de estados
+      \2 Tentativas de simplificação do problema uso dessa técnica
+    \1<2-> Técnicas não lineares baseadas na teoria lagrangeana
+    \1<2-> Técnicas não lineares por fluxos de redes
+  \0 \onslide<3->{Problemas:}
+    \1<3-> Não garantia de ótimo global
+    \1<4-> Problemas de convergência 
+    \1<5-> Computabilidade
+  \end{outline}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Alternativas com busca estocástica ou meta heurísticas}
+  
+  \begin{outline}
+  \0 \onslide<1->{Algoritmos:}
+    \1<1-> Simulated Annealing
+    \1<2-> Algoritmos Genéticos
+    \1<3-> Algoritmos Evolucionários
+    \1<4-> Programação Evolutiva
+    \1<5-> Otimização por Enxame de Partículas
+  \0 \onslide<6->{Vantagens:}
+    \1<6-> Sem restrições em relação a não linearidade e a não convexidade
+    \1<7-> Consegue boas soluções
+  \0 \onslide<8->{Problemas:}
+    \1<8-> Sem garantia de ótimo global
+  \0 \onslide<9->{Oportunidade de expandir para Otimização Multiobjetivo}
+  \end{outline}
+\end{frame}
+
 
 \subsection{Formulação}
 
+\begin{frame}
+  \frametitle{Variáveis de entrada e saída utilizadas no Modelo geral de uma Usina Hidroelétrica}
+  
+  \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{./fig/Modelo-Hidreletrica.pdf}
+    \label{fig:modeloHidreletrica}
+  \end{figure}
+\end{frame}
+\end{comment}
+
+\begin{frame}
+  \frametitle{Principais componentes de uma Usina Hidrelétrica}
+  
+  \begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{./fig/Componentes-usinas-hidreletricas.jpg}
+    \label{fig:componentesUsinasHidreletricas}
+  \end{figure}
+\end{frame}
+
+\begin{comment}
+\begin{frame}
+  \frametitle{Cascata de usinas}
+  
+  \begin{figure}
+    \centering
+    \includegraphics[width=3in]{./fig/Conjunto-Usinas.pdf}
+    \label{fig:conjuntoUsinas}
+  \end{figure}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Equações de geração de energia}
+  
+  Geração Hidráulica:
+  \begin{equation}\label{eq:geracaoHidraulica}
+    gh = k.(h_{mon}(v) - h_{jus}(u) - pc).q
+  \end{equation}
+  \begin{equation}\label{eq:constanteK}
+    k=\bar{\eta}.pa.g
+  \end{equation}
+  Onde:
+  
+  \begin{description}
+    \item[$gh$] geração hidráulica [$W$]
+    \item[$h_{mon}(v)$] altura a montante [$m$]
+    \item[$h_{jus}(u)$] altura a jusante [$m$]
+    \item[$pc$] perdas hidráulicas
+    \item[$k$] produtibilidade da usina
+    \item[$\bar{\eta}$] rendimento médio da usina
+    \item[$pa$] peso específico da água [$N/m^{3}$]
+    \item[$g$] gravidade [$m/s^{2}$]
+  \end{description}
+\end{frame}
+\end{comment}
+
+\begin{frame}
+  \frametitle{Formulação do Problema}
+  
+  Funções Objetivo:
+  \begin{equation}\label{eq:funcoesObjetivo}
+    \vec{F} = \{CT, VF\}
+  \end{equation}
+  
+  \begin{equation}\label{eq:funcaoObjetivoCustoTermico}
+    CT = min \sum_{t=1}^{T} f(gt_{t})
+  \end{equation}
+  \begin{equation}\label{eq:funcaoObjetivoCustoTermico}
+    VF = max \sum_{i=1}^{N} v_{iT}
+  \end{equation}
+\end{frame}
+
+\begin{comment}
+\begin{frame}
+  \frametitle{Formulação do Problema}
+  
+  Onde:
+  
+  \begin{description}
+    \item[$\vec{F}$] função multiobjetivo
+    \item[$CT$] objetivo de minimizar custo térmico total
+    \item[$VF$] objetivo de maximizar volume final dos reservatórios
+    \item[$T$] número de estágios do horizonte de planejamento (intervalo de tempo) [meses]
+    \item[$N$] número de usinas hidrelétricas do sistema
+    \item[$t$] unidade de tempo
+    \item[$i$] índice da usina hidrelétrica do sistema
+    \item[$gt_{t}$] geração térmica em $t$
+    \item[$f(gt_{t})$] custo térmico em $t$
+    \item[$v_{iT}$] volume final da hidrelétrica $i$
+  \end{description}
+\end{frame}
+\end{comment}
+
+\begin{frame}
+  \frametitle{Restrições}
+  
+  Balanceamento de carga:
+  \begin{equation}\label{eq:balanceamentoDeCarga}
+    gt_{t} + \sum_{i=1}^{N} gh_{it} - D_{t} - L_{t} = 0
+  \end{equation}
+  
+  Balanceamento dinâmico de água:
+  \begin{equation}\label{eq:balanceamentoDinamicoDaAgua}
+    v_{it} = v_{i,t-1} + y_{it} - q_{it} - spl_{it} + \sum_{m=1}^{\Phi_{i}} (q_{m,t} + spl_{m,t}), m \in \Phi_{i}
+  \end{equation}
+  
+  Demais restrições: limites de geração térmica, limites de geração hidrelétrica, limites de armazenamento e limites de turbinagem.
+\end{frame}  
+
+\begin{comment}
+\begin{frame}
+  \frametitle{Restrições}
+  
+  Onde:
+  
+  \begin{description}
+    \item[$gh_{it}$] geração da usina $i$ durante o período $t$ [$\overline{\rm MW}$]
+    \item[$D_{t}$] demanda a ser atendida durante o período $t$ [$\overline{\rm MW}$]
+    \item[$L_{t}$] perdas na transmissão de energia no instante $t$ [$\overline{\rm MW}$]
+    \item[$v_{it}$] volume do reservatório da usina $i$ no final do intervalo $t$ [$hm^{3}$]
+    \item[$y_{it}$] vazão incremental afluente à usina $i$ durante o intervalo $t$ [$m^{3}/s$]
+    \item[$q_{it}$] vazão turbinada pela usina $i$ durante o intervalo $t$ [$m^{3}$]
+    \item[$spl_{it}$] vazão vertida pela usina $i$ durante o intervalo $t$ [$m^{3}$]
+    \item[$\Phi_{i}$] conjunto de usinas imediatamente a montante da usina $i$
+  \end{description}
+\end{frame}
+\end{comment}  
+  
 \section[Otimização Multiobjetivo]{Otimização Multiobjetivo}
 
 \subsection{Fronteira de Pareto}
 
+\begin{frame}
+  \frametitle{Fronteira de Pareto}
+  
+  \begin{figure}
+    \centering
+    \includegraphics[width=2.5in]{./fig/Exemplo-Fronteira-de-Pareto2.pdf}
+    \label{fig:exemploFronteiraDePareto2}
+  \end{figure}
+\end{frame}
+
 \subsection{Métricas de Qualidade}
+
+\begin{frame}
+  \frametitle{Métricas de Qualidade}
+    
+  \begin{outline}
+  \0\onslide<1->{Tipos de Indicador de Qualidade:}
+    \1<1-> Unário: visa quantificar a qualidade de uma aproximação em relação a uma Fronteira de Pareto de referência
+    \1<2-> Binário: visa comparar duas aproximações diferentes.
+  \0\onslide<3->{Aspectos quantificados:}
+    \1<3-> Convergência
+    \1<4-> Diversidade
+  \0\onslide<5->{Métricas utilizadas:}
+    \1<5-> Epsilon $\epsilon+$: avalia convergência
+    \1<6-> SPREAD ($\Delta$): avalia diversidade
+    \1<7-> Hypervolume (HV): avalia convergência e diversidade
+  \end{outline}
+\end{frame}
+
+\begin{comment}
+\begin{frame}
+  \frametitle{Epsilon Aditivo Unário \texorpdfstring{($\epsilon+$)}{}}
+    
+  \begin{outline}
+    \1<1-> Tipo: unário
+    \1<2-> Aspecto avaliado: convergência
+    \1<3-> Valor a ser minimizado ($0$ indica que $A$ estritamente domina $R$)
+    \1<4-> Trabalha ponto a ponto
+    \1<5-> Calcula-se a parcela mínima $\epsilon$ a qual pode ser somada a qualquer ponto de $R$ de forma que $A$ passe a dominá-lo fracamente
+  \end{outline}
+\end{frame}
+
+\begin{frame}
+  \frametitle{SPREAD \texorpdfstring{($\Delta$)}{(Delta)}}
+    
+  \begin{outline}
+    \1<1-> Tipo: unário
+    \1<2-> Aspecto avaliado: diversidade
+    \1<3-> Valor a ser minimizado ($0$ indica que $A$ é abrangente e uniformemente espalhado)
+    \1<4-> Trabalha ponto a ponto
+    \1<5-> Calcula-se distâncias euclidianas ponto a ponto, a média dessas distâncias e então aplica-se um cálculo em cima disso
+  \end{outline}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hipervolume (HV)}
+    
+  \begin{outline}
+    \1<1-> Tipo: unário
+    \1<2-> Aspecto avaliado: convergência e diversidade
+    \1<3-> Valor a ser maximizado
+    \1<4-> Trabalha com ponto de referência
+    \1<5-> Mede o tamanho do espaço objetivo coberto por uma aproximação A
+  \end{outline}
+\end{frame}
+\end{comment}
 
 \section[Algoritmos Aplicados]{Algoritmos Aplicados}
 
-\subsection{NSGA-II}
+\subsection{Algoritmos Evolucionarios}
 
-\subsection{SPEA2}
+\begin{frame}
+  \frametitle{Esquema geral de um Algoritmo Evolucionário}
+  
+  \begin{figure}
+  \centering
+  \includegraphics[width=4.5in]{./fig/Fluxograma-Algoritmos-Evolucionarios.pdf}
+  \label{fig:fluxogramaAlgoritmosEvolucionarios}
+\end{figure}
+\end{frame}
 
-\subsection{MOCell}
+\begin{frame}
+  \frametitle{NSGA-II}
+    
+  \begin{outline}
+    \1<1-> Não possui arquivo externo de soluções não dominadas
+    \1<2-> Seleção de pais: torneio binário
+    \1<3-> Nova geração: seleção elitista com ordenação por rank e desempate por menor estimativa de densidade
+    \1<4-> Considerado um dos melhores algoritmos existentes até o momento na solução de problemas multiobjetivo
+  \end{outline}
+\end{frame}
 
-\subsection{OMOPSO}
+\begin{frame}
+  \frametitle{SPEA2}
+    
+  \begin{outline}
+    \1<1-> Possui arquivo externo de tamanho fixo
+      \2 Preenchido com soluções não dominadas e dominadas ordenadas por fitness
+      \2 Utiliza um operador de truncamento quando arquivo excede tamanho máximo
+    \1<2-> Seleção de pais: torneio binário entre membros do arquivo externo
+    \1<3-> Nova geração: filhos
+    \1<4-> Considerado em estado de arte
+  \end{outline}
+\end{frame}
 
-\subsection{SMPSO}
+\begin{frame}
+  \frametitle{Algoritmo Genético Celular}
+  
+  \begin{figure}
+    \centering
+    \includegraphics[width=2.5in]{./fig/cGA-Sobreposicao.pdf}
+    \label{fig:cgaDifusao}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Algoritmo Genético Celular}
+  
+  \begin{figure}
+    \centering
+    \includegraphics[width=3.5in]{./fig/cGA-Iteracao.pdf}
+    \label{fig:cgaIteracao}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{MOCell}
+    
+  \begin{outline}
+    \1<1-> Algorimo Genético Celular
+    \1<2-> Possui arquivo externo de soluções não dominadas
+      \2 Trucamento por estimativa de densidade
+      \2 Feedback: um número fixo de indivíduos aleatoriamente selecionados da população são substituídos por soluções do arquivo
+  \end{outline}
+\end{frame}
+
+\subsection{Otimização por Enxame de Partículas}
+
+\begin{frame}
+  \frametitle{Esquema geral de Otimização por Enxame de Partículas}
+  
+  \begin{figure}
+    \centering
+    \includegraphics[width=3in]{./fig/Esquema-Otimizacao-por-Enxames-de-Particulas.jpg}
+    \label{fig:esquemaOtimizacaoPorEnxamesDeParticulas}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{OMOPSO}
+    
+  \begin{outline}
+    \1<1-> Possui arquivo externo de soluções não dominadas
+      \2 Trucamento por estimativa de densidade
+      \2 Arquivo também usado como líderes do enxame
+    \1<2-> Cada partícula tem seu líder selecionado do arquivo por torneio binário baseado na estimativa de densidade
+    \1<3-> Adiciona mutação às partículas
+      \2 Mutação uniforme
+      \2 Mutução não uniforme
+      \2 Nenhuma mutação
+    \1<4-> $\epsilon$-dominância
+    \1<5-> Considerado o MOPSO mais proeminente antes do SMPSO
+  \end{outline}
+\end{frame}
+
+\begin{frame}
+  \frametitle{SMPSO}
+    
+  \begin{outline}
+    \1<1-> Sucessor do OMOPSO
+    \1<2-> Fator de constrição de velocidade
+    \1<3-> Mudança no esquema de mutação: apenas mutação polinomial em 15\% das partículas
+  \end{outline}
+\end{frame}
 
 \section[Estudos de Caso]{Estudos de Caso}
 
 \subsection{Cenário de Teste}
 
+\begin{frame}
+  \frametitle{Topologia usada no Estudo de Caso}
+  
+  \begin{figure}
+    \centering
+    \includegraphics[width=3in]{./fig/Conjunto-Usinas.pdf}
+    \label{fig:conjuntoUsinas}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Conjunto de Usinas Hidrelétricas estudadas}
+  
+  \begin{table}
+  \label{table:conjuntoUsinas}
+  \centering
+  \begin{tabular}{lcc}
+      \hline
+      Usina                 & Potência (MW) & Reservatório (hm$^{3}$) \\ \hline
+      Furnas                & $1312$        & $22950$                 \\
+      Mascarenhas de Moraes & $478$         & $4040$                  \\
+      Marimbondo            & $1488$        & $6150$                  \\
+      Água Vermelha         & $1396,2$      & $11025$                 \\
+      Emborcação            & $1192$        & $17725$                 \\
+      Itumbiara             & $2280$        & $17027$                 \\
+      São Simão             & $1710$        & $12540$                 \\
+      Ilha Solteira         & $3444$        & $21046,359375$          \\ \hline
+      Total                 & $13300,2$     & $112503,359375$         \\ \hline
+  \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Cenário de Teste}
+    
+  \begin{outline}
+    \1<1-> Dados históricos reais de chuvas e vazões
+    \1<2-> Períodos de 60 meses
+      \2 maio/1951 a abril/1956 (seca/vazões baixas)
+      \2 maio/1961 a abril/1966 (vazões médias)
+      \2 maio/1980 a abril/1985 (vazões altas)
+    \1<3-> Demanda considerada constante: $D_{t} = 14000$
+    \1<4-> Custo térmico simplificado: $CT = f(gt_{t}) = \frac{1}{2}(gt_{t})^{2}$
+  \end{outline}
+\end{frame}
+
 \subsection{Arquitetura do Sistema}
 
-\subsection{Parâmetros Utilizados nos Algoritmos}
+\begin{frame}
+  \frametitle{Arquitetura do Sistema}
+    
+  \begin{outline}
+    \1<1-> Java com framework JMetal
+    \1<2-> Partícula/Indivíduo/Solução:
+      \2 60 períodos e 8 usinas
+      \2 480 números reais entre 0.0 e 1.0
+      \2 Cada número representa a meta mensal de turbinagem normalizada de uma usina em um período
+    \1<3-> Simulador de operação das usinas hidrelétricas disponibilizado
+    \1<4-> Algoritmos tiveram parâmetros compatíveis para tornar a comparação justa
+    \1<5-> Um parâmetro em comum foi testado com 3 valores: índice de distribuição
+    \1<6-> 25 execuções de 500 iterações para cada par algoritmo com índice de distribuição
+    \1<7-> Melhores resultados globais usados como Fronteira de Pareto de Referência
+  \end{outline}
+\end{frame}
 
 \section[Resultados]{Resultados}
 
-\subsection{Período 1951-1956}
+\subsection{Período 1951-1956 (seca/vazões baixas)}
 
-\subsection{Período 1961-1966}
+\begin{frame}
+  \frametitle{Indicador Epsilon Aditivo (\textit{I}$^{1}_{\epsilon+}$)}
+    
+  \begin{outline}
+    \1<1-> Melhores resultados
+      \2 MOCell
+      \2 NSGA-II
+      \2 SPEA2
+      \2 OMOPSO
+      \2 SMPSO
+    \1<2-> Valores menores do índice de distribuição geraram melhores resultados
+  \end{outline}
+\end{frame}
 
-\subsection{Período 1980-1985}
+\begin{frame}
+  \frametitle{Indicador SPREAD ($\Delta$)}
+  
+  \begin{outline}
+    \1<1-> Melhores resultados
+      \2 SMPSO
+      \2 OMOPSO
+      \2 MOCell
+      \2 NSGA-II
+      \2 SPEA2
+    \1<2-> Valores menores do índice de distribuição geraram melhores resultados
+  \end{outline}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Indicador de Hipervolume (HV)}
+  
+  \begin{outline}
+    \1<1-> Melhores resultados
+      \2 NSGA-II
+      \2 SPEA2
+      \2 MOCell
+      \2 OMOPSO
+      \2 SMPSO
+    \1<2-> Valores menores do índice de distribuição geraram melhores resultados
+  \end{outline}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fronteiras de Pareto}
+  
+  \begin{figure}[h]
+    \centering
+    \resizebox{4.5in}{!}{\input{./fig/Fronteira-de-Pareto_EP_1.pdf_tex}}
+    \label{fig:paretoEP1}
+  \end{figure}
+\end{frame}
+
+\subsection{Período 1961-1966 (vazões médias)}
+
+\begin{frame}
+  \frametitle{Indicador Epsilon Aditivo (\textit{I}$^{1}_{\epsilon+}$)}
+    
+  \begin{outline}
+    \1<1-> Melhores resultados
+      \2 MOCell
+      \2 NSGA-II
+      \2 SPEA2
+      \2 OMOPSO
+      \2 SMPSO
+    \1<2-> Valores menores do índice de distribuição geraram melhores resultados
+  \end{outline}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Indicador SPREAD ($\Delta$)}
+  
+  \begin{outline}
+    \1<1-> Melhores resultados
+      \2 MOCell
+      \2 OMOPSO
+      \2 SMPSO
+      \2 NSGA-II
+      \2 SPEA2
+    \1<2-> Valores menores do índice de distribuição geraram melhores resultados
+  \end{outline}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Indicador de Hipervolume (HV)}
+  
+  \begin{outline}
+    \1<1-> Melhores resultados
+      \2 MOCell
+      \2 NSGA-II
+      \2 SPEA2
+    \1<2-> Valores menores do índice de distribuição geraram melhores resultados
+  \end{outline}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fronteiras de Pareto}
+  
+  \begin{figure}[h]
+    \centering
+    \resizebox{4.5in}{!}{\input{./fig/Fronteira-de-Pareto_EP_2.pdf_tex}}
+    \label{fig:paretoEP2}
+  \end{figure}
+\end{frame}
+
+\subsection{Período 1980-1985 (vazões altas)}
+
+\begin{frame}
+  \frametitle{Indicador Epsilon Aditivo (\textit{I}$^{1}_{\epsilon+}$)}
+    
+  \begin{outline}
+    \1<1-> Melhores resultados
+      \2 MOCell
+      \2 NSGA-II
+      \2 SPEA2
+      \2 OMOPSO
+      \2 SMPSO
+    \1<2-> Valores menores do índice de distribuição geraram melhores resultados
+  \end{outline}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Indicador SPREAD ($\Delta$)}
+  
+  \begin{outline}
+    \1<1-> Melhores resultados
+      \2 MOCell
+      \2 NSGA-II
+      \2 OMOPSO
+      \2 SMPSO
+      \2 SPEA2
+    \1<2-> Valores menores do índice de distribuição geraram melhores resultados
+  \end{outline}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Indicador de Hipervolume (HV)}
+  
+  \begin{outline}
+    \1<1-> Melhores resultados
+      \2 NSGA-II
+      \2 MOCell
+    \1<2-> Valores menores do índice de distribuição geraram melhores resultados
+  \end{outline}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fronteiras de Pareto}
+  
+  \begin{figure}[h]
+    \centering
+    \resizebox{4.5in}{!}{\input{./fig/Fronteira-de-Pareto_EP_3.pdf_tex}}
+    \label{fig:paretoEP2}
+  \end{figure}
+\end{frame}
 
 \subsection{Resultados Finais}
 
-\section[Conclusões]{Conclusões e Trabalhos Futuros}
+\begin{frame}
+  \frametitle{Resultados Finais}
+  
+  \begin{outline}
+    \1<1-> NSGA-II sempre tem soluções que domina todas as outras
+    \1<2-> MOCell, apesar de ser dominado por NSGA-II e SPEA2 em parte das soluções, apresenta muito mais espalhamento de soluções
+    \1<3-> Combinação de NSGA-II e MOCell traria a melhor convergência e distribuição
+    \1<4-> Algoritmos de Otimização por Enxame de Partículas foram muito inferiores nesse problema
+  \end{outline}
+\end{frame}
 
-
-
+\section[Trabalhos Futuros]{Trabalhos Futuros}
 
 \begin{frame}
-  \frametitle{Teste 1}
-  Testando o teste 1
+  \frametitle{Trabalhos Futuros}
   
-  \begin{itemize}
-    \item<1-> Um
-    \item<2-> Dois
-    \item<3-> Três
-    \item<4-> Quatro
-  \end{itemize}
+  \begin{outline}
+    \1<1-> Otimização dos parâmetros
+    \1<2-> Testar com sistemas maiores de usinas
+    \1<3-> Comparar com resultados reais de operação
+    \1<4-> Implementar o sistema completo, utilizando técnicas de previsão das afluências
+  \end{outline}
 \end{frame}
 
 \end{document}
